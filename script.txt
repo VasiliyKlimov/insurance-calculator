@@ -27,7 +27,42 @@
 
   <div id="premiumResult"></div>
 
-  <script src="script.js"></script> <!-- Или вставьте JavaScript прямо в <script> -->
+  <script src="script.js"></function calculatePremium() {
+  // Получение значений из формы
+  const program = document.querySelector('input[name="program"]:checked').value;
+  const insuranceDays = parseInt(document.getElementById('insuranceDays').value, 10);
+  const coverageAmount = parseFloat(document.getElementById('coverageAmount').value);
+
+  // Проверка корректности введенных данных
+  if (isNaN(insuranceDays) || insuranceDays <= 0 || isNaN(coverageAmount) || coverageAmount <= 0) {
+    document.getElementById('premiumResult').innerText = "Введите корректные данные.";
+    return;
+  }
+
+  // Определение базовой ставки
+  let baseRate;
+  switch (program) {
+    case 'basic':
+      baseRate = 0.01; // Ставка для "Базовая"
+      break;
+    case 'complex':
+      baseRate = 0.015; // Ставка для "Комплексная"
+      break;
+    case 'complex_ambulance':
+      baseRate = 0.02; // Ставка для "Комплексная + скорая"
+      break;
+    default:
+      document.getElementById('premiumResult').innerText = "Ошибка: неизвестная программа.";
+      return;
+  }
+
+  // Расчет стоимости
+  const premium = baseRate * coverageAmount * insuranceDays;
+
+  // Отображение результата
+  document.getElementById('premiumResult').innerText = `Примерная стоимость страховки: ${premium.toFixed(2)} ₽`;
+}
+> <!-- Или вставьте JavaScript прямо в <script> -->
 </body>
 </html>
 
