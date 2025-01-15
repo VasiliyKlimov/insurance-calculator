@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
@@ -8,6 +9,9 @@
       font-family: Arial, sans-serif;
       margin: 20px;
     }
+    h2, h3 {
+      margin-top: 0;
+    }
     label, input, button {
       margin-top: 10px;
       display: block;
@@ -16,15 +20,12 @@
       margin-top: 20px;
       font-weight: bold;
     }
-    .requisites {
-      margin-top: 30px;
-    }
-    .client-data {
-      margin-top: 20px;
-      border: 1px solid #ccc;
+    .calculator-inputs, .client-data, .requisites {
+      margin-bottom: 20px;
       padding: 15px;
+      border: 1px solid #ccc;
     }
-    .client-data h3 {
+    .calculator-inputs h3, .client-data h3, .requisites h3 {
       margin-top: 0;
     }
     .client-data label {
@@ -41,29 +42,32 @@
 <body>
   <h2>Калькулятор страхования от клеща</h2>
 
-  <div>
-    <label>Программа страхования:</label>
-    <input type="radio" id="basic" name="program" value="basic" checked>
-    <label for="basic">Базовая</label>
-    <input type="radio" id="complex" name="program" value="complex">
-    <label for="complex">Комплексная</label>
-    <input type="radio" id="complex_ambulance" name="program" value="complex_ambulance">
-    <label for="complex_ambulance">Комплексная + скорая</label>
+  <div class="calculator-inputs">
+    <h3>Параметры страхования</h3>
+    <div>
+      <label>Программа страхования:</label>
+      <input type="radio" id="basic" name="program" value="basic" checked>
+      <label for="basic">Базовая</label>
+      <input type="radio" id="complex" name="program" value="complex">
+      <label for="complex">Комплексная</label>
+      <input type="radio" id="complex_ambulance" name="program" value="complex_ambulance">
+      <label for="complex_ambulance">Комплексная + скорая</label>
+    </div>
+
+    <div>
+      <label for="insuranceDays">Срок страхования (дни):</label>
+      <input type="number" id="insuranceDays" value="30" min="1">
+    </div>
+
+    <div>
+      <label for="coverageAmount">Сумма страхового покрытия (₽):</label>
+      <input type="number" id="coverageAmount" value="50000" min="1">
+    </div>
+
+    <button onclick="calculatePremium()">Рассчитать</button>
+
+    <div id="premiumResult">Введите данные и нажмите "Рассчитать".</div>
   </div>
-
-  <div>
-    <label for="insuranceDays">Срок страхования (дни):</label>
-    <input type="number" id="insuranceDays" value="30" min="1">
-  </div>
-
-  <div>
-    <label for="coverageAmount">Сумма страхового покрытия (₽):</label>
-    <input type="number" id="coverageAmount" value="50000" min="1">
-  </div>
-
-  <button onclick="calculatePremium()">Рассчитать</button>
-
-  <div id="premiumResult">Введите данные и нажмите "Рассчитать".</div>
 
   <div class="client-data">
     <h3>Данные клиента</h3>
@@ -209,5 +213,3 @@
   </script>
 </body>
 </html>
-
-Теперь у вас есть калькулятор страхователя!
