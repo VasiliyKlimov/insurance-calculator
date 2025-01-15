@@ -84,5 +84,3 @@
       document.getElementById('premiumResult').innerText = `Примерная стоимость страховки: ${premium.toFixed(2)} ₽`;
     }
   </script>
-</body>
-</html>
