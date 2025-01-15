@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+
+<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
@@ -47,24 +48,16 @@
   <div id="premiumResult">Введите данные и нажмите "Рассчитать".</div>
 
   <script>
- function calculatePremium() {
-    const program = document.querySelector('input[name="program"]:checked').value;
-    const insuranceDays = parseInt(document.getElementById('insuranceDays').value);
-    const coverageAmount = parseInt(document.getElementById('coverageAmount').value);
+    function calculatePremium() {
+      // Получение значений из формы
+      const program = document.querySelector('input[name="program"]:checked').value;
+      const insuranceDays = parseInt(document.getElementById('insuranceDays').value, 10);
+      const coverageAmount = parseFloat(document.getElementById('coverageAmount').value);
 
-    let premium = 1000; // Базовая стоимость
-
-    if (program === 'complex') {
-        premium += 500;
-    } else if (program === 'complex_ambulance') {
-        premium += 1000;
-    }
-
-    premium += insuranceDays * 10;
-    premium += coverageAmount * 0.01;
-
-    document.getElementById('premiumResult').textContent = `Стоимость страховки: ${premium} ₽`;
-}
+      // Проверка корректности введенных данных
+      if (isNaN(insuranceDays) || insuranceDays <= 0 || isNaN(coverageAmount) || coverageAmount <= 0) {
+        document.getElementById('premiumResult').innerText = "Введите корректные данные.";
+        return;
       }
 
       // Определение базовой ставки
