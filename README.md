@@ -1,13 +1,8 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Калькулятор страхования от клеща</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <h2>Калькулятор страхования от клеща</h2>
+<div id="content">
+    <h1>Заголовок страницы</h1>
+    <p>Какой-то текст...</p>
+
+    <h2>Калькулятор страхования от клеща</h2> <!-— Новый раздел —>
 
     <div>
         <label>Программа страхования:</label>
@@ -28,7 +23,6 @@
         <label for="coverageAmount">Сумма страхового покрытия (₽):</label>
         <input type="number" id="coverageAmount" value="50000" min="1">
     </div>
-
     <fieldset>
         <legend>Данные страхователя:</legend>
         <label for="birthDate">Дата рождения:</label>
@@ -36,8 +30,10 @@
     </fieldset>
 
     <button onclick="calculatePremium()">Рассчитать</button>
-
     <div id="premiumResult">Введите данные и нажмите "Рассчитать".</div>
+
+    <script src="script.js"></script> <!-— Важно! —>
+</div>
 
     <h3>Информация о страховщике</h3>
     <p>Наименование организации: <strong>Страхование жизни и здоровье</strong></p>
