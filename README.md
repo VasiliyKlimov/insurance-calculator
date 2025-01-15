@@ -9,7 +9,7 @@
       font-family: Arial, sans-serif;
       margin: 20px;
     }
-    label, button {
+    label, input, button {
       margin-top: 10px;
       display: block;
     }
@@ -19,6 +19,23 @@
     }
     .requisites {
       margin-top: 30px;
+    }
+    .client-data {
+      margin-top: 20px;
+      border: 1px solid #ccc;
+      padding: 15px;
+    }
+    .client-data h3 {
+      margin-top: 0;
+    }
+    .client-data label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    .client-data input {
+      width: calc(100% - 12px); /* Adjust width for padding */
+      padding: 5px;
+      box-sizing: border-box;
     }
   </style>
 </head>
@@ -49,6 +66,62 @@
 
   <div id="premiumResult">Введите данные и нажмите "Рассчитать".</div>
 
+  <div class="client-data">
+    <h3>Данные клиента</h3>
+    <div>
+      <label for="contractStartDate">Дата начала договора:<span style="color: red;">*</span></label>
+      <input type="date" id="contractStartDate" required>
+    </div>
+    <div>
+      <label for="contractEndDate">Дата окончания договора:<span style="color: red;">*</span></label>
+      <input type="date" id="contractEndDate" required>
+    </div>
+    <div>
+      <label for="insurerFullName">ФИО страхователя:<span style="color: red;">*</span></label>
+      <input type="text" id="insurerFullName" required>
+    </div>
+    <div>
+      <label for="insuredFullName">ФИО застрахованного лица:</label>
+      <input type="text" id="insuredFullName">
+    </div>
+    <div>
+      <label for="insuredBirthYear">Год рождения:</label>
+      <input type="number" id="insuredBirthYear">
+    </div>
+    <div>
+      <label for="passportData">Паспортные данные:<span style="color: red;">*</span></label>
+      <input type="text" id="passportData" required>
+    </div>
+    <div>
+      <label for="registrationAddress">Адрес регистрации:<span style="color: red;">*</span></label>
+      <input type="text" id="registrationAddress" required>
+    </div>
+    <div>
+      <label for="livingAddress">Адрес фактического проживания:</label>
+      <input type="text" id="livingAddress">
+    </div>
+    <div>
+      <label for="snils">СНИЛС:<span style="color: red;">*</span></label>
+      <input type="text" id="snils" required>
+    </div>
+    <div>
+      <label for="inn">ИНН:</label>
+      <input type="text" id="inn">
+    </div>
+    <div>
+      <label for="workplace">Место работы:</label>
+      <input type="text" id="workplace">
+    </div>
+    <div>
+      <label for="phoneNumber">Телефон для связи:<span style="color: red;">*</span></label>
+      <input type="tel" id="phoneNumber" required>
+    </div>
+    <div>
+      <label for="email">Электронный почтовый ящик:<span style="color: red;">*</span></label>
+      <input type="email" id="email" required>
+    </div>
+  </div>
+
   <div class="requisites">
     <h3>Реквизиты страхования</h3>
     <p><strong>Название страхового продукта:</strong> Программа страхования «Защита от укуса клеща»</p>
@@ -63,14 +136,35 @@
 
   <script>
     function calculatePremium() {
-      // Получение значений из формы
+      // Получение значений из формы калькулятора
       const program = document.querySelector('input[name="program"]:checked').value;
       const insuranceDays = parseInt(document.getElementById('insuranceDays').value, 10);
       const coverageAmount = parseFloat(document.getElementById('coverageAmount').value);
 
-      // Проверка корректности введенных данных
+      // Проверка корректности введенных данных калькулятора
       if (isNaN(insuranceDays) || insuranceDays <= 0 || isNaN(coverageAmount) || coverageAmount <= 0) {
-        document.getElementById('premiumResult').innerText = "Введите корректные данные.";
+        document.getElementById('premiumResult').innerText = "Введите корректные данные для расчета.";
+        return;
+      }
+
+      // Получение значений из формы данных клиента
+      const contractStartDate = document.getElementById('contractStartDate').value;
+      const contractEndDate = document.getElementById('contractEndDate').value;
+      const insurerFullName = document.getElementById('insurerFullName').value;
+      const insuredFullName = document.getElementById('insuredFullName').value;
+      const insuredBirthYear = document.getElementById('insuredBirthYear').value;
+      const passportData = document.getElementById('passportData').value;
+      const registrationAddress = document.getElementById('registrationAddress').value;
+      const livingAddress = document.getElementById('livingAddress').value;
+      const snils = document.getElementById('snils').value;
+      const inn = document.getElementById('inn').value;
+      const workplace = document.getElementById('workplace').value;
+      const phoneNumber = document.getElementById('phoneNumber').value;
+      const email = document.getElementById('email').value;
+
+      // Простая проверка обязательных полей клиента (можно улучшить)
+      if (!contractStartDate || !contractEndDate || !insurerFullName || !passportData || !registrationAddress || !snils || !phoneNumber || !email) {
+        alert("Пожалуйста, заполните все обязательные поля данных клиента.");
         return;
       }
 
@@ -96,7 +190,81 @@
 
       // Отображение результата
       document.getElementById('premiumResult').innerText = `Примерная стоимость страховки: ${premium.toFixed(2)} ₽`;
+
+      // Здесь можно добавить код для дальнейшей обработки данных клиента, например, отправки на сервер
+      console.log("Данные клиента:");
+      console.log("Дата начала договора:", contractStartDate);
+      console.log("Дата окончания договора:", contractEndDate);
+      console.log("ФИО страхователя:", insurerFullName);
+      console.log("ФИО застрахованного лица:", insuredFullName);
+      console.log("Год рождения:", insuredBirthYear);
+      console.log("Паспортные данные:", passportData);
+      console.log("Адрес регистрации:", registrationAddress);
+      console.log("Адрес фактического проживания:", livingAddress);
+      console.log("СНИЛС:", snils);
+      console.log("ИНН:", inn);
+      console.log("Место работы:", workplace);
+      console.log("Телефон для связи:", phoneNumber);
+      console.log("Электронный почтовый ящик:", email);
     }
   </script>
 </body>
 </html>
+content_copy
+download
+Используйте код с осторожностью .
+HTML-код
+
+Основные изменения:
+
+Добавлен блок "Данные клиента":
+
+Создандивс классом `client-datклиент-данныедля группировки полей ввода данных клиента.
+
+Добавленыэтикеткаивходдля каждого запрошенного поля: "Данные начала договора
+
+Usefulвход(например,дата,число,электронная почта,тел).
+
+Добавлены атрибутыидентификатордля доступа к элементу
+
+Добавлены атрибутынеобходимыйк соблюдению полей (отмечены<span style="color: красный;">*</span>).
+
+Обновленный JavaScript:
+
+В функциирассчитатьПремиум()теперь получают значения и из полей данных клиента.
+
+Добавленотревога. Более сложную валидацию можно добавить при
+
+В консоли введены введенные данные клиента (это для примера, в первом приложении здесь будет логика отправк
+
+Как это работает:
+
+Форма:Новый блок "Данный клиент" выглядит привычно.необходимыйв полях будет подсказано браузеру, что эти поля обязательны для заполнения (визуально
+
+JavaScript:
+
+При нажатии на кнопку «Рассчитать» вызывает удовольствиерассчитатьПремиум().
+
+функция получает значение из всех полей ввода, включая новые поля данных клиента, с помощью `documedocument.getElementById('id_поля').value.
+
+Проверяется заполнение обязательных полей данных клиента.
+
+Выполняется расчетная стра
+
+Выводится результат расчета.
+
+В консоли вы создали данные клиента для компонентов, чт.
+
+Дополнительные улучшения (необязательно, но рекомендуется):
+
+Более оформление валидации:Можно добавить
+
+Условное использование полей:Если «ФИО застрахованного лица» должно быть только в том случае, если застрахованный отличаетс
+
+Stilization:Можно добавить больше стильного CSS для лучшего визуального оформления.
+
+Обработка ошибок:Вместотревогаможно использовать более дружелюбные способы отображения ошибок.
+
+Отправка данных:Если вы планируете отправить введенные данные на сервер, вам потребуется добавить HTML-фор.<форма>) и настроить отправку данных с помощью JavaScript (например, черезпринестиAPI).
+
+Теперь у вас есть калькулятор страхователя
