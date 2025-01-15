@@ -78,6 +78,12 @@
         <input type="tel" id="phone">
         <label for="email">Электронный почтовый ящик:</label>
         <input type="email" id="email">
+        <label for="birthDate">Дата рождения:</label>
+        <input type="date" id="birthDate">
+        <label for="registrationAddress">Адрес регистрации:</label>
+        <input type="text" id="registrationAddress">
+        <label for="actualAddress">Адрес фактического проживания (если отличается):</label>
+        <input type="text" id="actualAddress">
     </fieldset>
 
     <button onclick="calculatePremium()">Рассчитать</button>
@@ -86,8 +92,6 @@
 
     <script>
         function calculatePremium() {
-            // ... (предыдущий код расчета премии)
-
             const startDate = document.getElementById('startDate').value;
             const contractTerm = document.getElementById('contractTerm').value;
             const fioInsurer = document.getElementById('fioInsurer').value;
@@ -97,24 +101,33 @@
             const inn = document.getElementById('inn').value;
             const phone = document.getElementById('phone').value;
             const email = document.getElementById('email').value;
+            const birthDate = document.getElementById('birthDate').value;
+            const registrationAddress = document.getElementById('registrationAddress').value;
+            const actualAddress = document.getElementById('actualAddress').value;
 
-
-            if (!startDate || !contractTerm || !fioInsurer || !passportData || !snils || !inn || !phone || !email) {
-                document.getElementById('premiumResult').innerText = "Пожалуйста, заполните все поля данных страхователя.";
+            if (!startDate || !contractTerm || !fioInsurer || !passportData || !snils || !inn || !phone || !email || !birthDate || !registrationAddress) {
+                document.getElementById('premiumResult').innerText = "Пожалуйста, заполните все обязательные поля данных страхователя.";
                 return;
             }
+
+            // Рассчитываем стоимость страховки (примерный расчет)
+            let premium = 1000 * parseInt(coverageAmount) / 50000; // Простой пример расчета
+
             // Отображение результата (дополненное)
             let resultText = `Примерная стоимость страховки: ${premium.toFixed(2)} ₽<br><br>`;
             resultText += `<b>Данные по договору:</b><br>`;
             resultText += `Дата начала договора: ${startDate}<br>`;
             resultText += `Срок договора: ${contractTerm} дней<br>`;
             resultText += `ФИО страхователя: ${fioInsurer}<br>`;
-            resultText += `ФИО застрахованного: ${fioInsured || fioInsurer}<br>`; // Если не указано, берем страхователя
+            resultText += `ФИО застрахованного: ${fioInsured || fioInsurer}<br>`;
             resultText += `Паспортные данные: ${passportData}<br>`;
             resultText += `СНИЛС: ${snils}<br>`;
             resultText += `ИНН: ${inn}<br>`;
             resultText += `Телефон: ${phone}<br>`;
             resultText += `Email: ${email}<br>`;
+            resultText += `Дата рождения: ${birthDate}<br>`;
+            resultText += `Адрес регистрации: ${registrationAddress}<br>`;
+            resultText += `Адрес фактического проживания: ${actualAddress || 'Не указан'}<br>`;
 
             document.getElementById('premiumResult').innerHTML = resultText; // Используем innerHTML для переносов строк
         }
