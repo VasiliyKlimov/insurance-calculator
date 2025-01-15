@@ -79,16 +79,6 @@
     <label for="complex_ambulance">Комплексная + скорая</label>
 </div>
 
-<div>
-    <label for="insuranceDays">Срок страхования (дни):</label>
-    <input type="number" id="insuranceDays" value="30" min="1">
-</div>
-
-<div>
-    <label for="coverageAmount">Сумма страхового покрытия (₽):</label>
-    <input type="number" id="coverageAmount" value="50000" min="1">
-</div>
-
 <fieldset>
     <legend>Данные страхователя:</legend>
     <label for="startDate">Дата начала договора:</label>
