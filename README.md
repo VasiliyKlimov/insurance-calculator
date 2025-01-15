@@ -31,30 +31,8 @@
 
     <fieldset>
         <legend>Данные страхователя:</legend>
-        <label for="startDate">Дата начала договора:</label>
-        <input type="date" id="startDate">
-        <label for="contractTerm">Срок договора (дни):</label>
-        <input type="number" id="contractTerm" value="365" min="1">
-        <label for="fioInsurer">ФИО страхователя:</label>
-        <input type="text" id="fioInsurer">
-        <label for="fioInsured">ФИО застрахованного лица (если отличается):</label>
-        <input type="text" id="fioInsured">
-        <label for="passportData">Паспортные данные:</label>
-        <input type="text" id="passportData">
-        <label for="snils">СНИЛС:</label>
-        <input type="text" id="snils">
-        <label for="inn">ИНН:</label>
-        <input type="text" id="inn">
-        <label for="phone">Телефон для связи:</label>
-        <input type="tel" id="phone">
-        <label for="email">Электронный почтовый ящик:</label>
-        <input type="email" id="email">
         <label for="birthDate">Дата рождения:</label>
         <input type="date" id="birthDate">
-        <label for="registrationAddress">Адрес регистрации:</label>
-        <input type="text" id="registrationAddress">
-        <label for="actualAddress">Адрес фактического проживания (если отличается):</label>
-        <input type="text" id="actualAddress">
     </fieldset>
 
     <button onclick="calculatePremium()">Рассчитать</button>
