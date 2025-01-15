@@ -216,4 +216,33 @@
       // Получение значений из формы калькулятора
       const program = document.querySelector('input[name="program"]:checked').value;
       const insuranceDays = parseInt(document.getElementById('insuranceDays').value, 10);
-      const coverageAmount = parseFloat(document.getElementBy
+      const coverageAmount = parseFloat(document.getElementById('coverageAmount').value, 10);
+
+      if (isNaN(insuranceDays) || insuranceDays <= 0 || isNaN(coverageAmount) || coverageAmount <= 0) {
+        document.getElementById('premiumResult').textContent = 'Пожалуйста, введите корректные данные для расчёта.';
+        return;
+      }
+
+      let baseRate;
+      switch (program) {
+        case 'basic':
+          baseRate = 0.01;
+          break;
+        case 'complex':
+          baseRate = 0.015;
+          break;
+        case 'complex_ambulance':
+          baseRate = 0.02;
+          break;
+        default:
+          baseRate = 0.01;
+      }
+
+      // Расчёт премии
+      const premium = coverageAmount * baseRate * insuranceDays / 365; // Премия на год
+      document.getElementById('premiumResult').textContent = `Расчётная стоимость страхования: ${premium.toFixed(2)} ₽`;
+    }
+  </script>
+
+</body>
+</html>
