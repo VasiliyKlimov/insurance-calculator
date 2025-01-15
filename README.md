@@ -1,4 +1,31 @@
-<div>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Калькулятор страхования от клеща</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    label, button {
+      margin-top: 10px;
+      display: block;
+    }
+    #premiumResult {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    .requisites {
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Калькулятор страхования от клеща</h2>
+
+  <div>
     <label>Программа страхования:</label>
     <input type="radio" id="basic" name="program" value="basic" checked>
     <label for="basic">Базовая</label>
@@ -6,63 +33,70 @@
     <label for="complex">Комплексная</label>
     <input type="radio" id="complex_ambulance" name="program" value="complex_ambulance">
     <label for="complex_ambulance">Комплексная + скорая</label>
-</div>
+  </div>
 
-<div>
+  <div>
     <label for="insuranceDays">Срок страхования (дни):</label>
     <input type="number" id="insuranceDays" value="30" min="1">
-</div>
+  </div>
 
-<div>
+  <div>
     <label for="coverageAmount">Сумма страхового покрытия (₽):</label>
     <input type="number" id="coverageAmount" value="50000" min="1">
-</div>
+  </div>
 
-<fieldset>
-    <legend>Данные страхователя:</legend>
-    <label for="startDate">Дата начала договора:</label>
-    <input type="date" id="startDate">
-    <label for="contractTerm">Срок договора (дни):</label>
-    <input type="number" id="contractTerm" value="365" min="1">
-    <label for="fioInsurer">ФИО страхователя:</label>
-    <input type="text" id="fioInsurer">
-    <label for="fioInsured">ФИО застрахованного лица (если отличается):</label>
-    <input type="text" id="fioInsured">
-    <label for="passportData">Паспортные данные:</label>
-    <input type="text" id="passportData">
-    <label for="snils">СНИЛС:</label>
-    <input type="text" id="snils">
-    <label for="inn">ИНН:</label>
-    <input type="text" id="inn">
-    <label for="phone">Телефон для связи:</label>
-    <input type="tel" id="phone">
-    <label for="email">Электронный почтовый ящик:</label>
-    <input type="email" id="email">
-    <label for="birthDate">Дата рождения:</label>
-    <input type="date" id="birthDate">
-    <label for="registrationAddress">Адрес регистрации:</label>
-    <input type="text" id="registrationAddress">
-    <label for="actualAddress">Адрес фактического проживания (если отличается):</label>
-    <input type="text" id="actualAddress">
-</fieldset>
+  <button onclick="calculatePremium()">Рассчитать</button>
 
-<button onclick="calculatePremium()">Рассчитать</button>
+  <div id="premiumResult">Введите данные и нажмите "Рассчитать".</div>
 
-<div id="premiumResult">Введите данные и нажмите "Рассчитать".</div>
+  <div class="requisites">
+    <h3>Реквизиты страхования</h3>
+    <p><strong>Название страхового продукта:</strong> Программа страхования «Защита от укуса клеща»</p>
+    <p><strong>Вид страхования:</strong> Личное, прочее (здоровье)</p>
+    <p><strong>Является обязательным видом страхования:</strong> Нет, добровольное медицинское страхование</p>
+    <p><strong>Страхователь:</strong> физ. лицо (ФИО, паспортные данные, адрес регистрации, СНИЛС, ИНН, место работы, телефон для связи, электронная почта)</p>
+    <p><strong>Застрахованное лицо:</strong> Совпадает/не совпадает со страхователем (по желанию, страхуется за себя или за других)</p>
+    <p><strong>Объект страхования:</strong> Жизнь и здоровье</p>
+    <p><strong>Страховой период:</strong> Минимум на 1 месяц, максимум на 1 фактический год</p>
+    <p><strong>Перечень страховых рисков:</strong> Добровольное медицинское страхование граждан от укуса клеща</p>
+  </div>
 
-<h3>Информация о страховщике</h3>
-<p>Наименование организации: <strong>Страхование жизни и здоровье</strong></p>
-<p>ИНН: <strong>222000555333</strong></p>
-<p>ОГРН: <strong>2222222222</strong></p>
-<p>Юридический адрес: <strong>Алтайский край, г. Барнаул, пр-т Ленина, дом 1, помещение 1</strong></p>
-<p>Email: <a href="mailto:strahov@inbox.ru">strahov@inbox.ru</a></p>
-<p>Телефон: <a href="tel:+73852221122">+7 (385) 222-11-22</a></p>
+  <script>
+    function calculatePremium() {
+      // Получение значений из формы
+      const program = document.querySelector('input[name="program"]:checked').value;
+      const insuranceDays = parseInt(document.getElementById('insuranceDays').value, 10);
+      const coverageAmount = parseFloat(document.getElementById('coverageAmount').value);
 
-<hr> <!— Разделительная линия —>
+      // Проверка корректности введенных данных
+      if (isNaN(insuranceDays) || insuranceDays <= 0 || isNaN(coverageAmount) || coverageAmount <= 0) {
+        document.getElementById('premiumResult').innerText = "Введите корректные данные.";
+        return;
+      }
 
-<h3>ТИПОВОЙ ДОГОВОР № ______<br>
-добровольного медицинского страхования<br>
-«___» __________ 20__ г.</h3>
+      // Определение базовой ставки
+      let baseRate;
+      switch (program) {
+        case 'basic':
+          baseRate = 0.01;
+          break;
+        case 'complex':
+          baseRate = 0.015;
+          break;
+        case 'complex_ambulance':
+          baseRate = 0.02;
+          break;
+        default:
+          document.getElementById('premiumResult').innerText = "Ошибка: неизвестная программа.";
+          return;
+      }
 
-<p>Публичное акционерное общество Страховая компания «Росгосстрах», именуемое в дальнейшем «СТРАХОВЩИК», в лице ____________________________________________________________________________, действующего на основании ________________________________ № ______ от «___» __________, с одной стороны, и _____________________________________________________________________________________________________________________________, именуемый (-ая) в дальнейшем «СТРАХОВАТЕЛЬ», действующий на основании ____________________________________________________________________________ от __________________________, с другой стороны, именуемые в дальнейшем «стороны», заключили настоящий договор о следующем:</p>
+      // Расчет стоимости
+      const premium = baseRate * coverageAmount * insuranceDays;
 
+      // Отображение результата
+      document.getElementById('premiumResult').innerText = `Примерная стоимость страховки: ${premium.toFixed(2)} ₽`;
+    }
+  </script>
+</body>
+</html>
