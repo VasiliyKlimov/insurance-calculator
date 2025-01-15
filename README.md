@@ -1,102 +1,128 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
+    <title>Договор ДМС</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Калькулятор страхования от клеща</title>
-    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h2>Калькулятор страхования от клеща</h2>
 
-    <div>
-        <label>Программа страхования:</label>
-        <input type="radio" id="basic" name="program" value="basic" checked>
-        <label for="basic">Базовая</label>
-        <input type="radio" id="complex" name="program" value="complex">
-        <label for="complex">Комплексная</label>
-        <input type="radio" id="complex_ambulance" name="program" value="complex_ambulance">
-        <label for="complex_ambulance">Комплексная + скорая</label>
-    </div>
+<div>
+    <label>Программа страхования:</label>
+    <input type="radio" id="basic" name="program" value="basic" checked required>
+    <label for="basic">Базовая</label>
+    <input type="radio" id="complex" name="program" value="complex" required>
+    <label for="complex">Комплексная</label>
+    <input type="radio" id="complex_ambulance" name="program" value="complex_ambulance" required>
+    <label for="complex_ambulance">Комплексная + скорая</label>
+</div>
 
-    <div>
-        <label for="insuranceDays">Срок страхования (дни):</label>
-        <input type="number" id="insuranceDays" value="30" min="1">
-    </div>
+<div>
+    <label for="insuranceDays">Срок страхования (дни):</label>
+    <input type="number" id="insuranceDays" value="30" min="1" required>
+</div>
 
-    <div>
-        <label for="coverageAmount">Сумма страхового покрытия (₽):</label>
-        <input type="number" id="coverageAmount" value="50000" min="1">
-    </div>
+<div>
+    <label for="coverageAmount">Сумма страхового покрытия (₽):</label>
+    <input type="number" id="coverageAmount" value="50000" min="1" required>
+</div>
 
-    <fieldset>
-        <legend>Данные страхователя:</legend>
-        <label for="startDate">Дата начала договора:</label>
-        <input type="date" id="startDate">
-        <label for="contractTerm">Срок договора (дни):</label>
-        <input type="number" id="contractTerm" value="365" min="1">
-        <label for="fioInsurer">ФИО страхователя:</label>
-        <input type="text" id="fioInsurer">
-        <label for="fioInsured">ФИО застрахованного лица (если отличается):</label>
-        <input type="text" id="fioInsured">
-        <label for="passportData">Паспортные данные:</label>
-        <input type="text" id="passportData">
-        <label for="snils">СНИЛС:</label>
-        <input type="text" id="snils">
-        <label for="inn">ИНН:</label>
-        <input type="text" id="inn">
-        <label for="phone">Телефон для связи:</label>
-        <input type="tel" id="phone">
-        <label for="email">Электронный почтовый ящик:</label>
-        <input type="email" id="email">
-        <label for="birthDate">Дата рождения:</label>
-        <input type="date" id="birthDate">
-        <label for="registrationAddress">Адрес регистрации:</label>
-        <input type="text" id="registrationAddress">
-        <label for="actualAddress">Адрес фактического проживания (если отличается):</label>
-        <input type="text" id="actualAddress">
-    </fieldset>
+<fieldset>
+    <legend>Данные страхователя:</legend>
+    <label for="startDate">Дата начала договора:</label>
+    <input type="date" id="startDate" required>
+    <label for="contractTerm">Срок договора (дни):</label>
+    <input type="number" id="contractTerm" value="365" min="1" required>
+    <label for="endDate">Дата окончания договора:</label>
+    <input type="date" id="endDate" readonly> <br><br>
 
-    <button onclick="calculatePremium()">Рассчитать</button>
+    <label for="fioInsurer">ФИО страхователя:</label>
+    <input type="text" id="fioInsurer">
+    <label for="fioInsured">ФИО застрахованного лица (если отличается):</label>
+    <input type="text" id="fioInsured">
+    <label for="passportData">Паспортные данные:</label>
+    <input type="text" id="passportData">
+    <label for="snils">СНИЛС:</label>
+    <input type="text" id="snils">
+    <label for="inn">ИНН:</label>
+    <input type="text" id="inn">
+    <label for="phone">Телефон для связи:</label>
+    <input type="tel" id="phone">
+    <label for="email">Электронный почтовый ящик:</label>
+    <input type="email" id="email">
+    <label for="birthDate">Дата рождения:</label>
+    <input type="date" id="birthDate">
+    <label for="registrationAddress">Адрес регистрации:</label>
+    <input type="text" id="registrationAddress">
+    <label for="actualAddress">Адрес фактического проживания (если отличается):</label>
+    <input type="text" id="actualAddress">
+</fieldset>
 
-    <div id="premiumResult">Введите данные и нажмите "Рассчитать".</div>
+<button onclick="calculatePremium()">Рассчитать</button>
 
-    <h3>Информация о страховщике</h3>
-    <p>Наименование организации: <strong>Страхование жизни и здоровье</strong></p>
-    <p>ИНН: <strong>222000555333</strong></p>
-    <p>ОГРН: <strong>2222222222</strong></p>
-    <p>Юридический адрес: <strong>Алтайский край, г. Барнаул, пр-т Ленина, дом 1, помещение 1</strong></p>
-    <p>Email: <a href="mailto:strahov@inbox.ru">strahov@inbox.ru</a></p>
-    <p>Телефон: <a href="tel:+73852221122">+7 (385) 222-11-22</a></p>
+<div id="premiumResult">Введите данные и нажмите "Рассчитать".</div>
 
-    <hr>
+<h3>Информация о страховщике</h3>
+<p>...</p>
 
-    <h3>ТИПОВОЙ ДОГОВОР № ______<br>
-    добровольного медицинского страхования<br>
-    «___» __________ 20__ г.</h3>
+<hr>
 
-    <p>Публичное акционерное общество Страховая компания «Росгосстрах», именуемое в дальнейшем «СТРАХОВЩИК», в лице ____________________________________________________________________________, действующего на основании ________________________________ № ______ от «___» __________, с одной стороны, и _____________________________________________________________________________________________________________________________, именуемый (-ая) в дальнейшем «СТРАХОВАТЕЛЬ», действующий на основании ____________________________________________________________________________ от __________________________, с другой стороны, именуемые в дальнейшем «стороны», заключили настоящий договор о следующем:</p>
+<h3>ТИПОВОЙ ДОГОВОР № ______<br>
+добровольного медицинского страхования<br>
+<span id="contractDate">___</span> __________ <span id="contractYear">20__</span> г.</h3>
 
-    <ol>
-        <li><b>ПРЕДМЕТ ДОГОВОРА</b><br>
-            1.1. СТРАХОВЩИК принимает на себя организацию, оплату и контроль качества медицинских и иных услуг, оказываемых гражданам, включенным в представленные СТРАХОВАТЕЛЕМ списки (далее – застрахованным), являющиеся неотъемлемой частью настоящего договора страхования.<br>
-            Страховым случаем является факт документально подтвержденного обращения застрахованного в медицинское учреждение из числа предусмотренных Договором страхования за получением медицинских и иных услуг в экстренном и/или плановом порядке, в случаях острых заболеваний, отравлений, ожогов или травм, а также обострений хронических заболеваний, возникших в период действия Договора страхования, требующих оказания медицинской помощи.<br>
-            Услуги предоставляются Застрахованному в соответствии с программой страхования или по согласованию со Страховщиком путем оказания консультативной, лечебной, диагностической, профилактической, реабилитационно-восстановительной, санаторно-курортной, медикаментозной, скорой и неотложной медицинской и иной помощи.<br>
-            1.2. Перечень медицинских и иных услуг, оказываемых застрахованному, а также перечень медицинских учреждений определяются сторонами по каждой программе страхования, которые прилагаются к настоящему договору и являются его неотъемлемой частью.<br>
-            1.3. Общая численность застрахованных на момент заключения договора составляет ______ человек, из них:<br>
-            по программе «_________» - ______ человек,<br>
-            по программе «_________» - ______ человек, и т.д.<br>
-            Списки застрахованных, составленные по программам страхования по форме, утвержденной СТРАХОВЩИКОМ, передаются СТРАХОВАТЕЛЕМ СТРАХОВЩИКУ.<br>
-            1.4. СТРАХОВЩИК выдает застрахованному (ым) через СТРАХОВАТЕЛЯ или представителя в течение 10 рабочих дней после вступления договора страхования в силу полис (ы) добровольного медицинского страхования установленной формы с приложением выписки из правил добровольного медицинского страхования и программы страхования.<br>
-            1.5. СТРАХОВАТЕЛЬ, заключивший настоящий договор добровольного медицинского страхования в пользу другого лица, прав застрахованного не приобретает.
-        </li>
-        <li><b>СТРАХОВАЯ СУММА. РАЗМЕР, СРОКИ И ПОРЯДОК ВНЕСЕНИЯ СТРАХОВОЙ ПРЕМИИ (ВЗНОСОВ)</b><br>
-            2.1. Размер страховой премии за каждого застрахованного составляет:<br>
-            по программе «_________» - __________ руб., страховой тариф __________,<br>
-            по программе «_________» - __________ руб., страховой тариф __________ и т.д.<br>
-            Страховая премия по настоящему договору составляет (всего) __________ (словами) руб.<br>
-            2.2. Страховая сумма на одного застрахованного по настоящему договору составляет: по программе «_________» - __________ руб.,<br>
-            по программе «_________» - __________ руб., и т.д.<br>
-            Общая страховая сумма по настоящему договору составляет __________ руб.<br>
-            2.3. По согласованию со СТРАХОВАТЕЛЕМ размер страховой премии в течение срока действия договора может изменяться в зависимости от изменения страховой программы, увеличения страхового риска.<br>
-            2.4. Оплата страховой премии (страховых взносов) производится СТРАХОВАТЕЛЕМ в рублях путем безналичных расчетов на расчетный
+<p>...</p>
+<ol>
+    <li><b>ПРЕДМЕТ ДОГОВОРА</b><br>
+        <p id="contractText"> </p>
+    </li>
+    <li><b>СТРАХОВАЯ СУММА. РАЗМЕР, СРОКИ И ПОРЯДОК ВНЕСЕНИЯ СТРАХОВОЙ ПРЕМИИ (ВЗНОСОВ)</b><br>
+        <p id="contractSum"> </p>
+    </li>
+</ol>
+
+<script>
+    const startDateInput = document.getElementById('startDate');
+    const contractTermInput = document.getElementById('contractTerm');
+    const endDateInput = document.getElementById('endDate');
+
+    startDateInput.addEventListener('change', calculateEndDate);
+    contractTermInput.addEventListener('change', calculateEndDate);
+    
+    function calculateEndDate() {
+        const startDate = new Date(startDateInput.value);
+        const term = parseInt(contractTermInput.value);
+
+        if (isNaN(startDate) || isNaN(term)) {
+            endDateInput.value = '';
+            return;
+        }
+
+        const endDate = new Date(startDate);
+        endDate.setDate(startDate.getDate() + term);
+
+        const formattedEndDate = endDate.toISOString().split('T')[0];
+        endDateInput.value = formattedEndDate;
+
+        document.getElementById("contractDate").innerText = startDate.getDate();
+        document.getElementById("contractYear").innerText = startDate.getFullYear();
+
+    }
+
+    function calculatePremium() {
+        // Здесь будет логика расчета премии и заполнение договора
+        let program = document.querySelector('input[name="program"]:checked').value;
+        let insuranceDays = document.getElementById("insuranceDays").value;
+        let coverageAmount = document.getElementById("coverageAmount").value;
+
+        let contract = `1.1. Страховым случаем является факт обращения застрахованного в медицинское учреждение. Услуги предоставляются в соответствии с программой ${program}. <br> 1.2. Срок страхования: ${insuranceDays} дней. <br> 1.3. Сумма страхового покрытия: ${coverageAmount} рублей.`;
+
+        let contractSum = `2.1. Страховая премия будет рассчитана дополнительно. <br> 2.2. Страховая сумма на одного застрахованного: ${coverageAmount} рублей.`;
+
+        document.getElementById("contractText").innerHTML = contract;
+        document.getElementById("contractSum").innerHTML = contractSum;
+
+    }
+</script>
+
+</body>
+</html>
