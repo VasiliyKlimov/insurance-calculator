@@ -61,6 +61,14 @@
 
     <div id="premiumResult">Введите данные и нажмите "Рассчитать".</div>
 
+    <h3>Информация о страховщике</h3>
+    <p>Наименование организации: <strong>Страхование жизни и здоровье</strong></p>
+    <p>ИНН: <strong>1111111111111</strong></p>
+    <p>ОГРН: <strong>2222222222</strong></p>
+    <p>Юридический адрес: <strong>Алтайский край, г. Барнаул, пр-т Ленина, дом 1, помещение 1</strong></p>
+    <p>Email: <a href="mailto:strahov@inbox.ru">strahov@inbox.ru</a></p>
+    <p>Телефон: <a href="tel:+73852221122">+7 (385) 222-11-22</a></p>
+
     <script src="script.js"></script>
 </body>
 </html>
