@@ -212,3 +212,80 @@
   </script>
 </body>
 </html>
+
+from flask import Flask, request, jsonify
+from flask_cors import CORS  # Для обработки CORS
+
+app = Flask(__name__)
+CORS(app)  # Разрешить запросы с вашего GitHub Pages
+
+def calculate_insurance_premium(program, term_days, geographical_location_factor, time_of_year_factor,
+                                insured_age_factor, insured_activity_factor, medical_history_factor,
+                                prevention_methods_factor, coverage_amount_factor, insurance_period_factor):
+    # ... (ваш код расчета из предыдущего ответа) ...
+    if program == "A":
+        annual_premium = 50000 * (20.53 / 100)
+    elif program == "B":
+        annual_premium = (50000 * (30.80 / 100)) + (100000 * (9.70 / 100))
+    elif program == "V":
+        annual_premium = (50000 * (1.03 / 100)) + (100000 * (0.94 / 100)) + (40000 * (2.21 / 100))
+    else:
+        return "Неверно указана программа страхования"
+
+    if 30 <= term_days <= 60:
+        percentage = 20
+    elif 61 <= term_days <= 90:
+        percentage = 30
+    elif 91 <= term_days <= 120:
+        percentage = 40
+    elif 121 <= term_days <= 150:
+        percentage = 50
+    elif 151 <= term_days <= 180:
+        percentage = 60
+    elif 181 <= term_days <= 210:
+        percentage = 70
+    elif 211 <= term_days <= 240:
+        percentage = 75
+    elif 241 <= term_days <= 270:
+        percentage = 80
+    elif 271 <= term_days <= 300:
+        percentage = 85
+    elif 301 <= term_days <= 330:
+        percentage = 90
+    elif 331 <= term_days <= 365:
+        percentage = 95
+    else:
+        return "Неверный срок страхования"
+
+    premium_with_term = annual_premium * (term_days / 365) * (percentage / 100)
+
+    final_premium = premium_with_term * geographical_location_factor * time_of_year_factor * \
+                    insured_age_factor * insured_activity_factor * medical_history_factor * \
+                    prevention_methods_factor * coverage_amount_factor * insurance_period_factor
+
+    return round(final_premium, 2)
+
+@app.route('/calculate_premium', methods=['POST'])
+def calculate():
+    data = request.get_json()
+    program = data.get('program')
+    term_days = data.get('term_days')
+    geo_factor = data.get('geographical_location_factor')
+    time_factor = data.get('time_of_year_factor')
+    age_factor = data.get('insured_age_factor')
+    activity_factor = data.get('insured_activity_factor')
+    history_factor = data.get('medical_history_factor')
+    prevention_factor = data.get('prevention_methods_factor')
+    coverage_factor = data.get('coverage_amount_factor')
+    period_factor = data.get('insurance_period_factor')
+
+    if all([program, term_days, geo_factor, time_factor, age_factor, activity_factor, history_factor, prevention_factor, coverage_factor, period_factor]):
+        result = calculate_insurance_premium(program, int(term_days), float(geo_factor), float(time_factor),
+                                            float(age_factor), float(activity_factor), float(history_factor),
+                                            float(prevention_factor), float(coverage_factor), float(period_factor))
+        return jsonify({'premium': result})
+    else:
+        return jsonify({'error': 'Недостаточно данных для расчета'}), 400
+
+if __name__ == '__main__':
+    app.run(debug=True)
