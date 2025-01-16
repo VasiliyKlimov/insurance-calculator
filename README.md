@@ -11,9 +11,9 @@
       padding: 0;
       background-color: #f5f5f5;
       color: #333;
-      display: flex; /* Добавлено для гибкости */
-      flex-direction: column; /* Размещаем элементы вертикально */
-      align-items: stretch; /* Растягиваем элементы по ширине */
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
     }
     header {
       background-color: #2c3e50;
@@ -44,10 +44,10 @@
       padding: 30px;
       background-color: white;
       box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-      cursor: grab; /* Изменяем курсор при наведении */
+      cursor: grab;
     }
     .container:active {
-      cursor: grabbing; /* Изменяем курсор при перетаскивании */
+      cursor: grabbing;
     }
     h2 {
       color: #2c3e50;
@@ -113,9 +113,15 @@
     .documents li {
       margin-bottom: 10px;
     }
+    .documents li > div { /* Скрываем содержимое по умолчанию */
+      display: none;
+      margin-left: 20px;
+    }
     .documents a {
       color: #007bff;
       text-decoration: none;
+      display: block; /* Чтобы кликабельна была вся строка */
+      cursor: pointer; /* Меняем курсор на pointer */
     }
     .documents a:hover {
       text-decoration: underline;
@@ -129,6 +135,9 @@
     }
     footer a {
       color: #fff;
+    }
+    .hidden-content {
+      display: none;
     }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
@@ -208,8 +217,9 @@
     <div class="documents">
       <h3>Типовые документы:</h3>
       <ul>
-        <li><a href="#" target="_blank">Правила страхования от клеща</a>
-          <div style="margin-left: 20px;">
+        <li>
+          <a href="#" onclick="toggleDocument('rules'); return false;">Правила страхования от клеща</a>
+          <div id="rules" class="hidden-content">
             <h4>Общие положения</h4>
             <p>Настоящие правила определяют условия страхования от клещевого энцефалита и других заболеваний, передающихся через укус клеща, на которых строится договор между вами (Страхователем) и нашей компанией (Страховщиком).</p>
             <p>Страхователями могут выступать как физические, так и юридические лица, заключающие договор в свою пользу или в пользу третьих лиц (Застрахованных).</p>
@@ -352,6 +362,13 @@
         animation: 150
       });
     });
+
+    function toggleDocument(id) {
+      const content = document.getElementById(id);
+      if (content) {
+        content.classList.toggle('hidden-content');
+      }
+    }
   </script>
 
 </body>
