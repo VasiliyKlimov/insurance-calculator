@@ -11,17 +11,12 @@
       padding: 0;
       background-color: #f5f5f5;
       color: #333;
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-      /* Добавляем фон Windows XP "Безмятежность" */
-      background-image: url('bliss.jpg'); /* Укажите путь к вашему изображению */
-      background-size: cover; /* Растягиваем фон на всю область */
-      background-repeat: no-repeat; /* Отключаем повторение фона */
-      background-position: center center; /* Центрируем изображение */
+      display: flex; /* Добавлено для гибкости */
+      flex-direction: column; /* Размещаем элементы вертикально */
+      align-items: stretch; /* Растягиваем элементы по ширине */
     }
     header {
-      background-color: rgba(44, 62, 80, 0.8); /* Добавляем прозрачность для лучшей читаемости */
+      background-color: #2c3e50;
       color: white;
       padding: 20px;
       text-align: center;
@@ -30,7 +25,7 @@
       margin: 0;
     }
     nav {
-      background-color: rgba(52, 73, 94, 0.8); /* Добавляем прозрачность */
+      background-color: #34495e;
       padding: 10px;
       text-align: center;
     }
@@ -47,12 +42,12 @@
       max-width: 1200px;
       margin: 20px auto;
       padding: 30px;
-      background-color: rgba(255, 255, 255, 0.9); /* Добавляем прозрачный белый фон */
+      background-color: white;
       box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-      cursor: grab;
+      cursor: grab; /* Изменяем курсор при наведении */
     }
     .container:active {
-      cursor: grabbing;
+      cursor: grabbing; /* Изменяем курсор при перетаскивании */
     }
     h2 {
       color: #2c3e50;
@@ -67,7 +62,6 @@
       padding: 15px;
       border: 1px solid #ccc;
       border-radius: 8px;
-      background-color: rgba(255, 255, 255, 0.8); /* Прозрачный фон для блоков */
     }
     label {
       font-weight: bold;
@@ -104,7 +98,6 @@
       border-radius: 8px;
       padding: 15px;
       margin-bottom: 15px;
-      background-color: rgba(255, 255, 255, 0.8); /* Прозрачный фон для fieldset */
     }
     legend {
       font-weight: bold;
@@ -120,18 +113,9 @@
     .documents li {
       margin-bottom: 10px;
     }
-    .documents li > div {
-      display: none;
-      margin-left: 20px;
-      background-color: rgba(255, 255, 255, 0.8); /* Прозрачный фон для развернутого контента */
-      padding: 10px;
-      border-radius: 5px;
-    }
     .documents a {
       color: #007bff;
       text-decoration: none;
-      display: block;
-      cursor: pointer;
     }
     .documents a:hover {
       text-decoration: underline;
@@ -139,15 +123,12 @@
     footer {
       text-align: center;
       padding: 20px;
-      background-color: rgba(52, 73, 94, 0.8); /* Прозрачный фон для footer */
+      background-color: #34495e;
       color: white;
       font-size: 14px;
     }
     footer a {
       color: #fff;
-    }
-    .hidden-content {
-      display: none;
     }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
@@ -227,9 +208,8 @@
     <div class="documents">
       <h3>Типовые документы:</h3>
       <ul>
-        <li>
-          <a href="#" onclick="toggleDocument('rules'); return false;">Правила страхования от клеща</a>
-          <div id="rules" class="hidden-content">
+        <li><a href="#" target="_blank">Правила страхования от клеща</a>
+          <div style="margin-left: 20px;">
             <h4>Общие положения</h4>
             <p>Настоящие правила определяют условия страхования от клещевого энцефалита и других заболеваний, передающихся через укус клеща, на которых строится договор между вами (Страхователем) и нашей компанией (Страховщиком).</p>
             <p>Страхователями могут выступать как физические, так и юридические лица, заключающие договор в свою пользу или в пользу третьих лиц (Застрахованных).</p>
@@ -372,13 +352,6 @@
         animation: 150
       });
     });
-
-    function toggleDocument(id) {
-      const content = document.getElementById(id);
-      if (content) {
-        content.classList.toggle('hidden-content');
-      }
-    }
   </script>
 
 </body>
