@@ -276,9 +276,9 @@
             <!-- ... остальное содержимое ... -->
           </div>
         </li>
-        <li><a href="file:///F:/insurance_policy_sample.pdf" target="_blank">Образец страхового полиса</a>
-            <div class="document-content" id="procedureContent" style="display: none;">
-                Содержимое документа "Образец страхового полиса" будет отображаться здесь, если бы это был HTML контент. Поскольку это PDF, он откроется в новой вкладке.
+        <li><a href="#" onclick="toggleDocument('procedureContent'); return false;">Образец страхового полиса</a>
+            <div class="document-content" id="procedureContent">
+                Тут будет общее описание порядка действий, если это необходимо.
             </div>
         </li>
         <!-- Добавьте ссылки на реальные документы -->
