@@ -120,9 +120,17 @@
     .documents a {
       color: #007bff;
       text-decoration: none;
+      cursor: pointer; /* Добавляем курсор pointer для интерактивности */
     }
     .documents a:hover {
       text-decoration: underline;
+    }
+    .document-content {
+      margin-left: 20px;
+      display: none; /* Скрываем содержимое по умолчанию */
+    }
+    .document-content.show {
+      display: block;
     }
     footer {
       text-align: center;
@@ -215,8 +223,8 @@
     <div class="documents">
       <h3>Типовые документы:</h3>
       <ul>
-        <li><a href="#" target="_blank">Правила страхования от клеща</a>
-          <div style="margin-left: 20px;">
+        <li><a href="#" onclick="toggleDocument('rulesContent'); return false;">Правила страхования от клеща</a>
+          <div class="document-content" id="rulesContent">
             <h4>Общие положения</h4>
             <p>Настоящие правила определяют условия страхования от клещевого энцефалита и других заболеваний, передающихся через укус клеща, на которых строится договор между вами (Страхователем) и нашей компанией (Страховщиком).</p>
             <p>Страхователями могут выступать как физические, так и юридические лица, заключающие договор в свою пользу или в пользу третьих лиц (Застрахованных).</p>
@@ -258,8 +266,8 @@
           </div>
         </li>
         <li><a href="https://kaplife.ru/upload/iblock/674/Zayavlenie-o-strakhovoy-vyplate-KLESHCH.PDF" target="_blank">Заявление на страхование</a></li>
-        <li><a href="#">Образец страхового полиса</a>
-          <div style="margin-left: 20px;">
+        <li><a href="#" onclick="toggleDocument('policyContent'); return false;">Образец страхового полиса</a>
+          <div class="document-content" id="policyContent">
             <h3>Порядок действий при наступлении страхового случая: "Укус клеща"</h3>
             <hr>
 
@@ -407,7 +415,11 @@
             <p>Этот порядок действий следует уточнить, исходя из условий вашего договора страхования и рекомендаций страховой компании.</p>
           </div>
         </li>
-        <li><a href="#">Порядок действий при наступлении страхового случая</a></li>
+        <li><a href="#" onclick="toggleDocument('procedureContent'); return false;">Порядок действий при наступлении страхового случая</a>
+            <div class="document-content" id="procedureContent">
+                Тут будет общее описание порядка действий, если это необходимо.
+            </div>
+        </li>
         <!-- Добавьте ссылки на реальные документы -->
       </ul>
     </div>
@@ -507,6 +519,11 @@
         animation: 150
       });
     });
+
+    function toggleDocument(contentId) {
+      const content = document.getElementById(contentId);
+      content.classList.toggle('show');
+    }
   </script>
 
 </body>
