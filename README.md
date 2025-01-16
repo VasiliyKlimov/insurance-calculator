@@ -11,6 +11,9 @@
       padding: 0;
       background-color: #f5f5f5;
       color: #333;
+      display: flex; /* Добавлено для гибкости */
+      flex-direction: column; /* Размещаем элементы вертикально */
+      align-items: stretch; /* Растягиваем элементы по ширине */
     }
     header {
       background-color: #2c3e50;
@@ -41,6 +44,10 @@
       padding: 30px;
       background-color: white;
       box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+      cursor: grab; /* Изменяем курсор при наведении */
+    }
+    .container:active {
+      cursor: grabbing; /* Изменяем курсор при перетаскивании */
     }
     h2 {
       color: #2c3e50;
@@ -124,6 +131,7 @@
       color: #fff;
     }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 </head>
 <body>
 
@@ -294,6 +302,14 @@
       if (e.target.value.length > 12) {
         e.target.value = e.target.value.slice(0, 12);
       }
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const el = document.body;
+      const sortable = Sortable.create(el, {
+        draggable: '.container',
+        animation: 150
+      });
     });
   </script>
 
