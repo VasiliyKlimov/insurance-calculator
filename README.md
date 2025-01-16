@@ -189,12 +189,6 @@
         <input type="number" id="clientAge" min="0" max="999">
       </div>
       <div>
-        <label for="city">Город:</label>
-        <select id="city">
-          <option value="">Выберите город</option>
-        </select>
-      </div>
-      <div>
         <label for="region">Регион:</label>
         <select id="region">
           <option value="">Выберите регион</option>
@@ -477,11 +471,6 @@
   </footer>
 
   <script>
-    const cities = [
-      "Мураши", "Кирс", "Белая Холуница", "Омутнинск", "Зуевка", "Слободской", "Вятские Поляны", "Кирово-Чепецк", "Котельнич", "Яранск", "Советск", "Сосновка", "Луза", "Малмыж", "Нолинск", "Киров",
-      // ... добавьте остальные города в порядке возрастания размера
-    ];
-
     const regions = {
       "Города федерального значения": {
         "Москва": ["Москва"],
@@ -538,7 +527,7 @@
         "Калининградская область": ["Калининград", "Черняховск", "Советск"],
         "Калужская область": ["Калуга", "Обнинск"],
         "Кемеровская область": ["Кемерово", "Новокузнецк", "Прокопьевск"],
-        "Кировская область": cities, // Используем отсортированный массив городов
+        "Кировская область": ["Киров", "Кирово-Чепецк", "Вятские Поляны", "Слободской", "Котельнич", "Омутнинск", "Зуевка", "Белая Холуница", "Кирс", "Мураши", "Советск", "Яранск", "Сосновка", "Луза", "Малмыж", "Нолинск"],
         "Костромская область": ["Кострома"],
         "Курганская область": ["Курган", "Шадринск"],
         "Курская область": ["Курск", "Железногорск"],
@@ -583,14 +572,6 @@
     };
 
     document.addEventListener('DOMContentLoaded', function () {
-      const citySelect = document.getElementById('city');
-      cities.forEach(city => {
-        const option = document.createElement('option');
-        option.value = city;
-        option.textContent = city;
-        citySelect.appendChild(option);
-      });
-
       const regionSelect = document.getElementById('region');
       for (const regionType in regions) {
         const optgroup = document.createElement('optgroup');
@@ -619,7 +600,6 @@
       const insuranceDays = parseInt(document.getElementById('insuranceDays').value, 10);
       const coverageAmount = parseFloat(document.getElementById('coverageAmount').value, 10);
       const clientAge = parseInt(document.getElementById('clientAge').value, 10);
-      const city = document.getElementById('city').value;
       const region = document.getElementById('region').value;
 
       if (isNaN(insuranceDays) || insuranceDays <= 0 || isNaN(coverageAmount) || coverageAmount <= 0) {
@@ -628,7 +608,6 @@
       }
 
       console.log("Возраст клиента:", clientAge);
-      console.log("Город:", city);
       console.log("Регион:", region);
 
       let baseRate;
