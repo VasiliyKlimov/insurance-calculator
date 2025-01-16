@@ -95,6 +95,22 @@
     .requisites strong {
       color: #34495e;
     }
+
+    fieldset {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+
+    legend {
+      font-weight: bold;
+      padding: 0 10px;
+    }
+
+    fieldset div {
+      margin-bottom: 10px;
+    }
   </style>
 </head>
 <body>
@@ -163,10 +179,31 @@
         <label for="insuredBirthYear">Год рождения:</label>
         <input type="number" id="insuredBirthYear">
       </div>
-      <div>
-        <label for="passportData">Паспортные данные:</label>
-        <input type="text" id="passportData" required>
-      </div>
+
+      <fieldset>
+        <legend>Паспортные данные</legend>
+        <div>
+          <label for="passportSeries">Серия паспорта:</label>
+          <input type="text" id="passportSeries" required placeholder="XXXX" pattern="^\d{4}$" title="Четыре цифры">
+        </div>
+        <div>
+          <label for="passportNumber">Номер паспорта:</label>
+          <input type="text" id="passportNumber" required placeholder="XXXXXX" pattern="^\d{6}$" title="Шесть цифр">
+        </div>
+        <div>
+          <label for="passportIssueDate">Дата выдачи:</label>
+          <input type="date" id="passportIssueDate" required>
+        </div>
+        <div>
+          <label for="passportIssuedBy">Кем выдан:</label>
+          <input type="text" id="passportIssuedBy" required>
+        </div>
+        <div>
+          <label for="passportIssueCode">Код подразделения:</label>
+          <input type="text" id="passportIssueCode" required placeholder="XXX-XXX" pattern="^\d{3}-\d{3}$" title="Три цифры, дефис, три цифры">
+        </div>
+      </fieldset>
+
       <div>
         <label for="registrationAddress">Адрес регистрации:</label>
         <input type="text" id="registrationAddress" required>
