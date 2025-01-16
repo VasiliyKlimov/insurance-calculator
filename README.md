@@ -266,7 +266,7 @@
           </div>
         </li>
         <li><a href="https://kaplife.ru/upload/iblock/674/Zayavlenie-o-strakhovoy-vyplate-KLESHCH.PDF" target="_blank">Заявление на страхование</a></li>
-        <li><a href="#" onclick="toggleDocument('policyContent'); return false;">Образец страхового полиса</a>
+        <li><a href="#" onclick="toggleDocument('policyContent'); return false;">Порядок действий при наступлении страхового случая</a>
           <div class="document-content" id="policyContent">
             <h3>Порядок действий при наступлении страхового случая</h3>
             <h4>Порядок действий при наступлении страхового случая: "Укус клеща"</h4>
@@ -413,7 +413,7 @@
             <p>Этот порядок действий следует уточнить, исходя из условий вашего договора страхования и рекомендаций страховой компании.</p>
           </div>
         </li>
-        <li><a href="#" onclick="toggleDocument('procedureContent'); return false;">Порядок действий при наступлении страхового случая</a>
+        <li><a href="#" onclick="toggleDocument('procedureContent'); return false;">Образец страхового полиса</a>
             <div class="document-content" id="procedureContent">
                 Тут будет общее описание порядка действий, если это необходимо.
             </div>
