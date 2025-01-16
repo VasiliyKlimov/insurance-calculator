@@ -184,6 +184,32 @@
         <label for="coverageAmount">Сумма страхового покрытия (₽):</label>
         <input type="number" id="coverageAmount" value="50000" min="1">
       </div>
+      <div>
+        <label for="clientAge">Возраст клиента:</label>
+        <input type="number" id="clientAge" min="0" max="999">
+      </div>
+      <div>
+        <label for="city">Город:</label>
+        <select id="city">
+          <option value="">Выберите город</option>
+          <option value="Москва">Москва</option>
+          <option value="Санкт-Петербург">Санкт-Петербург</option>
+          <option value="Екатеринбург">Екатеринбург</option>
+          <option value="Казань">Казань</option>
+          <option value="Нижний Новгород">Нижний Новгород</option>
+          </select>
+      </div>
+      <div>
+        <label for="region">Регион:</label>
+        <select id="region">
+          <option value="">Выберите регион</option>
+          <option value="Москва">Москва</option>
+          <option value="Московская область">Московская область</option>
+          <option value="Санкт-Петербург">Санкт-Петербург</option>
+          <option value="Ленинградская область">Ленинградская область</option>
+          <option value="Свердловская область">Свердловская область</option>
+          </select>
+      </div>
       <button onclick="calculatePremium()">Рассчитать</button>
       <div id="premiumResult">Введите данные и нажмите "Рассчитать".</div>
     </div>
@@ -465,11 +491,18 @@
       const program = document.querySelector('input[name="program"]:checked').value;
       const insuranceDays = parseInt(document.getElementById('insuranceDays').value, 10);
       const coverageAmount = parseFloat(document.getElementById('coverageAmount').value, 10);
+      const clientAge = parseInt(document.getElementById('clientAge').value, 10);
+      const city = document.getElementById('city').value;
+      const region = document.getElementById('region').value;
 
       if (isNaN(insuranceDays) || insuranceDays <= 0 || isNaN(coverageAmount) || coverageAmount <= 0) {
         document.getElementById('premiumResult').textContent = 'Пожалуйста, введите корректные данные для расчёта.';
         return;
       }
+
+      console.log("Возраст клиента:", clientAge);
+      console.log("Город:", city);
+      console.log("Регион:", region);
 
       let baseRate;
       switch (program) {
