@@ -1,14 +1,16 @@
+<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Калькулятор страхования от клеща</title>
+  <title>Страховая компания "Здоровье и безопасность"</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
       background-color: #f5f5f5;
+      color: #333;
     }
     header {
       background-color: #2c3e50;
@@ -22,6 +24,7 @@
     nav {
       background-color: #34495e;
       padding: 10px;
+      text-align: center;
     }
     nav a {
       color: white;
@@ -34,7 +37,7 @@
     }
     .container {
       max-width: 1200px;
-      margin: 0 auto;
+      margin: 20px auto;
       padding: 30px;
       background-color: white;
       box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
@@ -45,23 +48,22 @@
     }
     h3 {
       color: #34495e;
+      margin-top: 0;
     }
-    .calculator-inputs, .client-data, .requisites {
+    .calculator-inputs, .client-data, .requisites, .documents {
       margin-bottom: 20px;
       padding: 15px;
       border: 1px solid #ccc;
       border-radius: 8px;
     }
-    .calculator-inputs h3, .client-data h3, .requisites h3 {
-      margin-top: 0;
-    }
     label {
       font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
     }
-    input, button {
-      width: 100%;
+    input[type="text"], input[type="email"], input[type="tel"], input[type="number"], input[type="date"] {
+      width: calc(100% - 22px);
       padding: 10px;
-      margin-top: 5px;
       margin-bottom: 15px;
       border: 1px solid #ccc;
       border-radius: 5px;
@@ -72,6 +74,9 @@
       color: white;
       cursor: pointer;
       font-size: 16px;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
     }
     button:hover {
       background-color: #27ae60;
@@ -81,35 +86,42 @@
       font-weight: bold;
       color: #2c3e50;
     }
-    .client-data input[type="text"], .client-data input[type="tel"], .client-data input[type="email"], .client-data input[type="number"] {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      box-sizing: border-box;
-    }
-    .requisites p {
-      font-size: 16px;
-      line-height: 1.6;
-    }
-    .requisites strong {
-      color: #34495e;
-    }
-
     fieldset {
       border: 1px solid #ccc;
       border-radius: 8px;
       padding: 15px;
       margin-bottom: 15px;
     }
-
     legend {
       font-weight: bold;
       padding: 0 10px;
     }
-
     fieldset div {
       margin-bottom: 10px;
+    }
+    .documents ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    .documents li {
+      margin-bottom: 10px;
+    }
+    .documents a {
+      color: #007bff;
+      text-decoration: none;
+    }
+    .documents a:hover {
+      text-decoration: underline;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #34495e;
+      color: white;
+      font-size: 14px;
+    }
+    footer a {
+      color: #fff;
     }
   </style>
 </head>
@@ -117,19 +129,19 @@
 
   <header>
     <h1>Страховая компания "Здоровье и безопасность"</h1>
-    <p>Мы заботимся о вашей безопасности и здоровье</p>
+    <p>Ваш надежный партнер в вопросах страхования</p>
   </header>
 
   <nav>
-    <a href="#">Главная</a>
-    <a href="#">О компании</a>
-    <a href="#">Программы</a>
-    <a href="#">Контакты</a>
+    <a href="#home">Главная</a>
+    <a href="#about">О компании</a>
+    <a href="#programs">Программы</a>
+    <a href="#documents">Документы</a>
+    <a href="#contacts">Контакты</a>
   </nav>
 
-  <div class="container">
+  <div class="container" id="home">
     <h2>Калькулятор страхования от клеща</h2>
-
     <div class="calculator-inputs">
       <h3>Параметры страхования</h3>
       <div>
@@ -141,115 +153,101 @@
         <input type="radio" id="complex_ambulance" name="program" value="complex_ambulance">
         <label for="complex_ambulance">Комплексная + скорая</label>
       </div>
-
       <div>
         <label for="insuranceDays">Срок страхования (дни):</label>
         <input type="number" id="insuranceDays" value="30" min="1">
       </div>
-
       <div>
         <label for="coverageAmount">Сумма страхового покрытия (₽):</label>
         <input type="number" id="coverageAmount" value="50000" min="1">
       </div>
-
       <button onclick="calculatePremium()">Рассчитать</button>
-
       <div id="premiumResult">Введите данные и нажмите "Рассчитать".</div>
-    </div>
-
-    <div class="client-data">
-      <h3>Данные клиента</h3>
-      <div>
-        <label for="contractStartDate">Дата начала договора:</label>
-        <input type="date" id="contractStartDate" required>
-      </div>
-      <div>
-        <label for="contractEndDate">Дата окончания договора:</label>
-        <input type="date" id="contractEndDate" required>
-      </div>
-      <div>
-        <label for="insurerFullName">ФИО страхователя:</label>
-        <input type="text" id="insurerFullName" required>
-      </div>
-      <div>
-        <label for="insuredFullName">ФИО застрахованного лица:</label>
-        <input type="text" id="insuredFullName">
-      </div>
-      <div>
-        <label for="insuredBirthYear">Год рождения:</label>
-        <input type="number" id="insuredBirthYear">
-      </div>
-
-      <fieldset>
-        <legend>Паспортные данные</legend>
-        <div>
-          <label for="passportSeries">Серия паспорта:</label>
-          <input type="text" id="passportSeries" required placeholder="XXXX" pattern="^\d{4}$" title="Четыре цифры">
-        </div>
-        <div>
-          <label for="passportNumber">Номер паспорта:</label>
-          <input type="text" id="passportNumber" required placeholder="XXXXXX" pattern="^\d{6}$" title="Шесть цифр">
-        </div>
-        <div>
-          <label for="passportIssueDate">Дата выдачи:</label>
-          <input type="date" id="passportIssueDate" required>
-        </div>
-        <div>
-          <label for="passportIssuedBy">Кем выдан:</label>
-          <input type="text" id="passportIssuedBy" required>
-        </div>
-        <div>
-          <label for="passportIssueCode">Код подразделения:</label>
-          <input type="text" id="passportIssueCode" required placeholder="XXX-XXX" pattern="^\d{3}-\d{3}$" title="Три цифры, дефис, три цифры">
-        </div>
-      </fieldset>
-
-      <div>
-        <label for="registrationAddress">Адрес регистрации:</label>
-        <input type="text" id="registrationAddress" required>
-      </div>
-      <div>
-        <label for="livingAddress">Адрес фактического проживания:</label>
-        <input type="text" id="livingAddress">
-      </div>
-      <div>
-        <label for="snils">СНИЛС:</label>
-        <input type="text" id="snils" required placeholder="XXX-XXX-XXX YY" pattern="^\d{3}-\d{3}-\d{3} \d{2}$">
-      </div>
-      <div>
-        <label for="inn">ИНН:</label>
-        <input type="text" id="inn" maxlength="12" pattern="^\d{10}(\d{2})?$">
-      </div>
-      <div>
-        <label for="workplace">Место работы:</label>
-        <input type="text" id="workplace">
-      </div>
-      <div>
-        <label for="phoneNumber">Телефон для связи:</label>
-        <input type="tel" id="phoneNumber" required>
-      </div>
-      <div>
-        <label for="email">Электронный почтовый ящик:</label>
-        <input type="email" id="email" required>
-      </div>
-    </div>
-
-    <div class="requisites">
-      <h3>Реквизиты страхования</h3>
-      <p><strong>Название страхового продукта:</strong> Программа страхования «Защита от укуса клеща»</p>
-      <p><strong>Вид страхования:</strong> Личное, прочее (здоровье)</p>
-      <p><strong>Является обязательным видом страхования:</strong> Нет, добровольное медицинское страхование</p>
-      <p><strong>Страхователь:</strong> физ. лицо (ФИО, паспортные данные, адрес регистрации, СНИЛС, ИНН, место работы, телефон для связи, электронная почта)</p>
-      <p><strong>Застрахованное лицо:</strong> Совпадает/не совпадает со страхователем (по желанию, страхуется за себя или за других)</p>
-      <p><strong>Объект страхования:</strong> Жизнь и здоровье</p>
-      <p><strong>Страховой период:</strong> Минимум на 1 месяц, максимум на 1 фактический год</p>
-      <p><strong>Перечень страховых рисков:</strong> Добровольное медицинское страхование граждан от укуса клеща</p>
     </div>
   </div>
 
+  <div class="container" id="about">
+    <h2>О компании</h2>
+    <p>Страховая компания "Здоровье и безопасность" — это команда профессионалов, стремящихся обеспечить вашу финансовую защиту и спокойствие. Мы предлагаем широкий спектр страховых услуг для физических и юридических лиц.</p>
+    <h3>Наши преимущества:</h3>
+    <ul>
+      <li>Индивидуальный подход к каждому клиенту</li>
+      <li>Широкий выбор страховых программ</li>
+      <li>Надежность и стабильность</li>
+      <li>Квалифицированная поддержка</li>
+    </ul>
+  </div>
+
+  <div class="container" id="programs">
+    <h2>Наши программы страхования</h2>
+    <div class="calculator-inputs">
+      <h3>Страхование от клеща</h3>
+      <p>Защитите себя и своих близких от неприятных последствий укуса клеща. Наша программа обеспечивает своевременную медицинскую помощь и компенсацию расходов.</p>
+      <!-- Здесь можно добавить краткое описание других программ -->
+    </div>
+    <h3>Другие программы:</h3>
+    <ul>
+      <li>Медицинское страхование</li>
+      <li>Страхование имущества</li>
+      <li>Автострахование</li>
+      <li>Страхование путешествий</li>
+      <!-- Добавьте другие программы по мере необходимости -->
+    </ul>
+  </div>
+
+  <div class="container" id="documents">
+    <h2>Документы</h2>
+    <div class="documents">
+      <h3>Типовые документы:</h3>
+      <ul>
+        <li><a href="#" target="_blank">Правила страхования от клеща</a></li>
+        <li><a href="#" target="_blank">Заявление на страхование</a></li>
+        <li><a href="#" target="_blank">Образец страхового полиса</a></li>
+        <li><a href="#" target="_blank">Порядок действий при наступлении страхового случая</a></li>
+        <!-- Добавьте ссылки на реальные документы -->
+      </ul>
+    </div>
+  </div>
+
+  <div class="container" id="contacts">
+    <h2>Контакты</h2>
+    <div class="requisites">
+      <h3>Контактная информация</h3>
+      <p><strong>Адрес:</strong> 123456, г. Москва, ул. Примерная, д. 10</p>
+      <p><strong>Телефон:</strong> +7 (495) 123-45-67</p>
+      <p><strong>Электронная почта:</strong> info@example.com</p>
+      <h3>Банковские реквизиты</h3>
+      <p><strong>Наименование банка:</strong> АО "Примерный Банк"</p>
+      <p><strong>БИК:</strong> 04XXXXXXXX</p>
+      <p><strong>Расчетный счет:</strong> 40702810XXXXXXXXXXXX</p>
+      <p><strong>Корреспондентский счет:</strong> 30101810XXXXXXXXXXXX</p>
+      <p><strong>КПП:</strong> 77XXXXXXXXX</p>
+      <p><strong>ОГРН:</strong> 103XXXXXXXXXXXX</p>
+    </div>
+    <div class="client-data">
+      <h3>Форма обратной связи</h3>
+      <div>
+        <label for="contactName">Ваше имя:</label>
+        <input type="text" id="contactName">
+      </div>
+      <div>
+        <label for="contactEmail">Ваш Email:</label>
+        <input type="email" id="contactEmail">
+      </div>
+      <div>
+        <label for="contactMessage">Сообщение:</label>
+        <textarea id="contactMessage" style="width: calc(100% - 22px); padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;"></textarea>
+      </div>
+      <button>Отправить</button>
+    </div>
+  </div>
+
+  <footer>
+    © 2023 Страховая компания "Здоровье и безопасность" | <a href="#">Политика конфиденциальности</a>
+  </footer>
+
   <script>
     function calculatePremium() {
-      // Получение значений из формы калькулятора
       const program = document.querySelector('input[name="program"]:checked').value;
       const insuranceDays = parseInt(document.getElementById('insuranceDays').value, 10);
       const coverageAmount = parseFloat(document.getElementById('coverageAmount').value, 10);
@@ -274,12 +272,10 @@
           baseRate = 0.01;
       }
 
-      // Расчёт премии
-      const premium = coverageAmount * baseRate * insuranceDays / 365; // Премия на год
+      const premium = coverageAmount * baseRate * insuranceDays / 365;
       document.getElementById('premiumResult').textContent = `Расчётная стоимость страхования: ${premium.toFixed(2)} ₽`;
     }
 
-    // Функция для форматирования СНИЛС при вводе
     document.getElementById('snils').addEventListener('input', function(e) {
       let value = e.target.value.replace(/\D/g, '');
       let formattedValue = '';
@@ -294,7 +290,6 @@
       e.target.value = formattedValue;
     });
 
-    // Функция для ограничения ввода в поле ИНН
     document.getElementById('inn').addEventListener('input', function(e) {
       if (e.target.value.length > 12) {
         e.target.value = e.target.value.slice(0, 12);
