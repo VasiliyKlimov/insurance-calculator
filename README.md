@@ -1,4 +1,3 @@
-
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
@@ -178,11 +177,11 @@
       </div>
       <div>
         <label for="snils">СНИЛС:</label>
-        <input type="text" id="snils" required>
+        <input type="text" id="snils" required placeholder="XXX-XXX-XXX YY" pattern="^\d{3}-\d{3}-\d{3} \d{2}$">
       </div>
       <div>
         <label for="inn">ИНН:</label>
-        <input type="text" id="inn">
+        <input type="text" id="inn" maxlength="12" pattern="^\d{10}(\d{2})?$">
       </div>
       <div>
         <label for="workplace">Место работы:</label>
@@ -242,6 +241,28 @@
       const premium = coverageAmount * baseRate * insuranceDays / 365; // Премия на год
       document.getElementById('premiumResult').textContent = `Расчётная стоимость страхования: ${premium.toFixed(2)} ₽`;
     }
+
+    // Функция для форматирования СНИЛС при вводе
+    document.getElementById('snils').addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\D/g, '');
+      let formattedValue = '';
+      for (let i = 0; i < value.length; i++) {
+        if (i === 3 || i === 6) {
+          formattedValue += '-';
+        } else if (i === 9) {
+          formattedValue += ' ';
+        }
+        formattedValue += value[i];
+      }
+      e.target.value = formattedValue;
+    });
+
+    // Функция для ограничения ввода в поле ИНН
+    document.getElementById('inn').addEventListener('input', function(e) {
+      if (e.target.value.length > 12) {
+        e.target.value = e.target.value.slice(0, 12);
+      }
+    });
   </script>
 
 </body>
