@@ -1,240 +1,172 @@
-const regions = {
-      "Города федерального значения": {
-        "Москва": ["Москва"],
-        "Санкт-Петербург": ["Санкт-Петербург"],
-        "Севастополь": ["Севастополь"]
-      },
-      "Республики": {
-        "Республика Адыгея": ["Майкоп"],
-        "Республика Башкортостан": ["Уфа", "Стерлитамак", "Салават", "Нефтекамск"],
-        "Республика Бурятия": ["Улан-Удэ"],
-        "Республика Алтай": ["Горно-Алтайск"],
-        "Республика Дагестан": ["Махачкала", "Дербент"],
-        "Республика Ингушетия": ["Магас", "Назрань"],
-        "Кабардино-Балкарская Республика": ["Нальчик"],
-        "Республика Калмыкия": ["Элиста"],
-        "Карачаево-Черкесская Республика": ["Черкесск"],
-        "Республика Карелия": ["Петрозаводск"],
-        "Республика Коми": ["Сыктывкар", "Ухта", "Воркута"],
-        "Республика Крым": ["Симферополь", "Керчь", "Евпатория", "Ялта"],
-        "Республика Марий Эл": ["Йошкар-Ола"],
-        "Республика Мордовия": ["Саранск"],
-        "Республика Саха (Якутия)": ["Якутск", "Нерюнгри"],
-        "Республика Северная Осетия — Алания": ["Владикавказ"],
-        "Республика Татарстан": ["Казань", "Набережные Челны", "Нижнекамск"],
-        "Тыва": ["Кызыл"],
-        "Удмуртская Республика": ["Ижевск", "Сарапул", "Воткинск"],
-        "Республика Хакасия": ["Абакан"],
-        "Чеченская Республика": ["Грозный"],
-        "Чувашская Республика": ["Чебоксары", "Новочебоксарск"]
-      },
-      "Края": {
-        "Алтайский край": ["Барнаул", "Бийск", "Рубцовск"],
-        "Забайкальский край": ["Чита"],
-        "Камчатский край": ["Петропавловск-Камчатский"],
-        "Краснодарский край": ["Краснодар", "Сочи", "Новороссийск", "Армавир"],
-        "Красноярский край": ["Красноярск", "Норильск", "Ачинск"],
-        "Пермский край": ["Пермь", "Березники", "Соликамск"],
-        "Приморский край": ["Владивосток", "Находка", "Уссурийск"],
-        "Ставропольский край": ["Ставрополь", "Пятигорск", "Кисловодск", "Невинномысск"],
-        "Хабаровский край": ["Хабаровск", "Комсомольск-на-Амуре"]
-      },
-      "Области": {
-        "Амурская область": ["Благовещенск"],
-        "Архангельская область": ["Архангельск", "Северодвинск", "Котлас"],
-        "Астраханская область": ["Астрахань"],
-        "Белгородская область": ["Белгород", "Старый Оскол"],
-        "Брянская область": ["Брянск"],
-        "Владимирская область": ["Владимир", "Ковров", "Муром"],
-        "Волгоградская область": ["Волгоград", "Волжский", "Камышин"],
-        "Вологодская область": ["Вологда", "Череповец"],
-        "Воронежская область": ["Воронеж", "Борисоглебск"],
-        "Ивановская область": ["Иваново", "Кинешма", "Шуя"],
-        "Иркутская область": ["Иркутск", "Братск", "Ангарск"],
-        "Калининградская область": ["Калининград", "Черняховск", "Советск"],
-        "Калужская область": ["Калуга", "Обнинск"],
-        "Кемеровская область": ["Кемерово", "Новокузнецк", "Прокопьевск"],
-        "Кировская область": ["Киров", "Кирово-Чепецк", "Вятские Поляны", "Слободской", "Котельнич", "Омутнинск", "Зуевка", "Белая Холуница", "Кирс", "Мураши", "Советск", "Яранск", "Сосновка", "Луза", "Малмыж", "Нолинск"],
-        "Костромская область": ["Кострома"],
-        "Курганская область": ["Курган", "Шадринск"],
-        "Курская область": ["Курск", "Железногорск"],
-        "Ленинградская область": ["Гатчина", "Выборг", "Сосновый Бор"],
-        "Липецкая область": ["Липецк", "Елец"],
-        "Магаданская область": ["Магадан"],
-        "Московская область": ["Балашиха", "Подольск", "Химки", "Мытищи", "Королёв", "Люберцы", "Красногорск", "Электросталь", "Коломна", "Одинцово", "Серпухов", "Орехово-Зуево", "Ногинск", "Щёлково", "Сергиев Посад"],
-        "Мурманская область": ["Мурманск", "Апатиты", "Североморск"],
-        "Нижегородская область": ["Нижний Новгород", "Дзержинск", "Арзамас"],
-        "Новгородская область": ["Великий Новгород", "Старая Русса"],
-        "Новосибирская область": ["Новосибирск", "Бердск", "Искитим"],
-        "Омская область": ["Омск"],
-        "Оренбургская область": ["Оренбург", "Орск"],
-        "Орловская область": ["Орёл"],
-        "Пензенская область": ["Пенза"],
-        "Псковская область": ["Псков", "Великие Луки"],
-        "Ростовская область": ["Ростов-на-Дону", "Таганрог", "Шахты", "Новочеркасск", "Волгодонск"],
-        "Рязанская область": ["Рязань", "Касимов"],
-        "Самарская область": ["Самара", "Тольятти", "Сызрань"],
-        "Саратовская область": ["Саратов", "Энгельс", "Балаково"],
-        "Сахалинская область": ["Южно-Сахалинск", "Корсаков"],
-        "Свердловская область": ["Екатеринбург", "Нижний Тагил", "Каменск-Уральский", "Первоуральск"],
-        "Смоленская область": ["Смоленск", "Вязьма"],
-        "Тамбовская область": ["Тамбов", "Мичуринск"],
-        "Тверская область": ["Тверь", "Ржев", "Вышний Волочёк"],
-        "Томская область": ["Томск", "Северск"],
-        "Тульская область": ["Тула", "Новомосковск"],
-        "Тюменская область": ["Тюмень", "Тобольск", "Ишим"],
-        "Ульяновская область": ["Ульяновск", "Димитровград"],
-        "Челябинская область": ["Челябинск", "Магнитогорск", "Златоуст", "Миасс"],
-        "Ярославская область": ["Ярославль", "Рыбинск", "Тутаев"]
-      },
-      "Автономная область": {
-        "Еврейская автономная область": ["Биробиджан"]
-      },
-      "Автономные округа": {
-        "Ненецкий автономный округ": ["Нарьян-Мар"],
-        "Ханты-Мансийский автономный округ — Югра": ["Ханты-Мансийск", "Сургут", "Нижневартовск"],
-        "Чукотский автономный округ": ["Анадырь"],
-        "Ямало-Ненецкий автономный округ": ["Салехард", "Новый Уренгой", "Ноябрьск"]
-      }
-    };
-
-    document.addEventListener('DOMContentLoaded', function () {
-      const regionSelect = document.getElementById('region');
-      for (const regionType in regions) {
-        const optgroup = document.createElement('optgroup');
-        optgroup.label = regionType;
-        for (const regionName in regions[regionType]) {
-          const citiesInRegion = regions[regionType][regionName];
-          citiesInRegion.forEach(city => {
-            const option = document.createElement('option');
-            option.value = regionName;
-            option.textContent = city + (citiesInRegion.length > 1 ? ` (${regionName})` : '');
-            optgroup.appendChild(option);
-          });
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор страхования от клеща</title>
+    <style>
+        body {
+            font-family: sans-serif;
         }
-        regionSelect.appendChild(optgroup);
-      }
+        .container {
+            width: 500px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+        .additional-options {
+            margin-top: 20px;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Калькулятор страхования от клеща</h2>
+        <div class="calculator-inputs">
+            <h3>Параметры страхования</h3>
+            <div>
+                <label for="program">Программа страхования:</label>
+                <select id="program">
+                    <option value="basic">Базовая</option>
+                    <option value="complex">Комплексная</option>
+                    <option value="complex_ambulance">Комплексная + скорая</option>
+                </select>
+            </div>
+            <div>
+                <label for="insuranceDays">Срок страхования (дни):</label>
+                <input type="number" id="insuranceDays" value="30" min="1" required>
+            </div>
+            <div>
+                <label for="coverageAmount">Сумма страхового покрытия (₽):</label>
+                <input type="number" id="coverageAmount" value="50000" min="1" required>
+            </div>
+            <div>
+                <label for="clientAge">Возраст клиента:</label>
+                <input type="number" id="clientAge" min="0" max="120" required>
+            </div>
+            <div>
+                <label for="region">Регион:</label>
+                <select id="region" required>
+                    <option value="">Выберите регион</option>
+                </select>
+            </div>
 
-        const el = document.body;
-        const sortable = Sortable.create(el, {
-            draggable: '.container',
-            animation: 150
+            <div class="additional-options">
+                <h3>Дополнительные параметры</h3>
+                <div>
+                    <label for="occupation">Занятие/хобби:</label>
+                    <input type="text" id="occupation">
+                </div>
+                <div>
+                    <label for="healthCondition">Состояние здоровья:</label>
+                    <select id="healthCondition">
+                        <option value="good">Хорошее</option>
+                        <option value="average">Среднее</option>
+                        <option value="bad">Плохое</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="disabilityCoverage">Сумма компенсации за инвалидность (₽):</label>
+                    <input type="number" id="disabilityCoverage" value="0" min="0">
+                </div>
+                <div>
+                    <label for="franchise">Франшиза (₽):</label>
+                    <input type="number" id="franchise" value="0" min="0">
+                </div>
+            </div>
+            <button onclick="calculatePremium()">Рассчитать</button>
+            <div id="premiumResult">Введите данные и нажмите "Рассчитать".</div>
+            <div id="error-message" class="error"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          fetch('regions.json') // Замените на путь к вашему файлу с регионами
+            .then(response => response.json())
+            .then(regions => {
+              const regionSelect = document.getElementById('region');
+              regions.forEach(region => {
+                const option = document.createElement('option');
+                option.value = region.id; // или region.name, в зависимости от структуры JSON
+                option.text = region.name;
+                regionSelect.appendChild(option);
+              });
+            }).catch(error => {
+              console.error("Ошибка загрузки регионов:", error);
+              document.getElementById('error-message').textContent = 'Ошибка загрузки регионов.';
+            });
         });
-    });
 
-    function calculatePremium() {
-    const program = document.querySelector('input[name="program"]:checked').value;
-    const insuranceDays = parseInt(document.getElementById('insuranceDays').value, 10);
-    const coverageAmount = parseFloat(document.getElementById('coverageAmount').value, 10);
-    const clientAge = parseInt(document.getElementById('clientAge').value, 10);
-    const region = document.getElementById('region').value;
-    const hobby = document.getElementById('hobby').value.toLowerCase();
-    const medicalHistory = document.getElementById('medicalHistory').value.toLowerCase();
-    const compensationAmount = parseFloat(document.getElementById('compensationAmount').value, 10);
-    const healthStatus = document.getElementById('healthStatus').value;
-    const franchise = parseFloat(document.getElementById('franchise').value, 10);
-    const additionalOptions = document.getElementById('additionalOptions').value;
+        function calculatePremium() {
+            const insuranceDays = Number(document.getElementById('insuranceDays').value);
+            const coverageAmount = Number(document.getElementById('coverageAmount').value);
+            const clientAge = Number(document.getElementById('clientAge').value);
+            const region = document.getElementById('region').value;
+            const occupation = document.getElementById('occupation').value;
+            const healthCondition = document.getElementById('healthCondition').value;
+            const disabilityCoverage = Number(document.getElementById('disabilityCoverage').value);
+            const franchise = Number(document.getElementById('franchise').value);
+            const program = document.getElementById('program').value;
+            const errorMessage = document.getElementById('error-message');
+            errorMessage.textContent = "";
 
-      if (isNaN(insuranceDays) || insuranceDays <= 0 || isNaN(coverageAmount) || coverageAmount <= 0) {
-        document.getElementById('premiumResult').textContent = 'Пожалуйста, введите корректные данные для расчёта.';
-        return;
-      }
+            if (Number.isNaN(insuranceDays) || insuranceDays <= 0 || Number.isNaN(coverageAmount) || coverageAmount <= 0 || Number.isNaN(clientAge) || clientAge < 0 || region === "") {
+                errorMessage.textContent = 'Пожалуйста, заполните все обязательные поля корректно.';
+                return;
+            }
 
-      let baseRate;
-        switch (program) {
-          case 'basic':
-            baseRate = 0.01;
-            break;
-          case 'complex':
-            baseRate = 0.015;
-            break;
-          case 'complex_ambulance':
-            baseRate = 0.02;
-            break;
-          default:
-            baseRate = 0.01;
+            let baseRate = 0.01;
+
+            switch (program) {
+                case 'basic':
+                    baseRate = 0.01;
+                    break;
+                case 'complex':
+                    baseRate = 0.015;
+                    break;
+                case 'complex_ambulance':
+                    baseRate = 0.02;
+                    break;
+            }
+
+            let premium = coverageAmount * baseRate * insuranceDays / 365;
+
+            if (healthCondition === 'bad') {
+                premium *= 1.2;
+            }
+
+            if (disabilityCoverage > 0) {
+                premium += disabilityCoverage * 0.005;
+            }
+
+            if (franchise > 0) {
+                premium -= franchise * 0.001;
+            }
+
+            premium = Math.round(premium * 100) / 100;
+
+            document.getElementById('premiumResult').textContent = `Расчётная стоимость страхования: ${premium.toLocaleString('ru-RU')} ₽`;
         }
+    </script>
 
-        let riskFactor = 1;
-
-        // Корректировка для возраста
-        if (clientAge > 60) {
-            riskFactor += 0.1;
-        } else if (clientAge > 40) {
-          riskFactor += 0.05;
-        }
-
-        // Корректировка для региона
-        if (region === "Республика Дагестан" || region === "Республика Чечня" ) {
-          riskFactor += 0.2;
-        }
-        // Корректировка для хобби (пример, можно дополнить)
-        if (hobby.includes('спорт') || hobby.includes('охота')) {
-            riskFactor += 0.15;
-        }
-
-       // Корректировка для истории болезней (пример, можно дополнить)
-        if (medicalHistory.includes('диабет') || medicalHistory.includes('сердце')) {
-             riskFactor += 0.20;
-         }
-
-        //Корректировка для суммы компенсации
-        if (compensationAmount > 100000 ) {
-          riskFactor += 0.1;
-        }
-        // Корректировка для состояния здоровья
-        switch (healthStatus) {
-            case 'poor':
-              riskFactor += 0.3;
-                break;
-            case 'average':
-              riskFactor += 0.15;
-                break;
-           // Для отличного и хорошего состояния здоровья не будем добавлять корректировку
-        }
-
-        // Корректировка для франшизы
-        if (franchise > 0) {
-          riskFactor -= 0.05;
-        }
-
-        // Корректировка для доп. опций
-        switch (additionalOptions) {
-          case 'extended_coverage':
-            riskFactor += 0.10;
-              break;
-          case 'rehabilitation':
-             riskFactor += 0.08;
-              break;
-        }
-
-
-      const premium = coverageAmount * baseRate * insuranceDays / 365 * riskFactor;
-      document.getElementById('premiumResult').textContent = `Расчётная стоимость страхования: ${premium.toFixed(2)} ₽`;
-    }
-
-    document.getElementById('snils').addEventListener('input', function(e) {
-      let value = e.target.value.replace(/\D/g, '');
-      let formattedValue = '';
-      for (let i = 0; i < value.length; i++) {
-        if (i === 3 || i === 6) {
-          formattedValue += '-';
-        } else if (i === 9) {
-          formattedValue += ' ';
-        }
-        formattedValue += value[i];
-      }
-      e.target.value = formattedValue;
-    });
-
-    document.getElementById('inn').addEventListener('input', function(e) {
-      if (e.target.value.length > 12) {
-        e.target.value = e.target.value.slice(0, 12);
-      }
-    });
-
-    function toggleDocument(contentId) {
-      const content = document.getElementById(contentId);
-      content.classList.toggle('show');
-    }
-  </script>
+</body>
+</html>
