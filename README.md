@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
@@ -78,26 +78,34 @@
     }
     label {
       font-weight: bold;
-      margin-left: 5px; /* Добавляем отступ слева от текста */
+      margin-left: 5px;
       margin-left: 5px;
     }
     input[type="radio"] {
-      margin-right: 5px; /* Добавляем отступ справа от радиокнопки */
+      margin-right: 5px;
       margin-right: 5px;
     }
-    input[type="text"], input[type="email"], input[type="tel"], input[type="number"], input[type="date"] {
+    input[type="text"], input[type="email"], input[type="tel"], input[type="number"], input[type="date"], select {
       width: calc(100% - 22px);
       padding: 10px;
       margin-bottom: 15px;
       border: 1px solid #ccc;
       border-radius: 5px;
       box-sizing: border-box;
-      transition: border-color 0.3s ease; /* Плавное изменение бордера */
+      transition: border-color 0.3s ease;
     }
-    input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus, input[type="number"]:focus, input[type="date"]:focus {
+     select {
+       appearance: none;
+       background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>');
+        background-repeat: no-repeat;
+        background-position: right 10px top 50%;
+        background-size: 18px;
+        padding-right: 30px;
+      }
+    input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus, input[type="number"]:focus, input[type="date"]:focus, select:focus {
       border-color: #64b5f6;
-      outline: none; /* Убираем стандартное выделение при фокусе */
-      box-shadow: 0 0 5px rgba(100, 181, 246, 0.5); /* Тень при фокусе */
+      outline: none;
+      box-shadow: 0 0 5px rgba(100, 181, 246, 0.5);
     }
     button {
       background-color: #2ecc71;
@@ -107,7 +115,7 @@
       padding: 10px 15px;
       border: none;
       border-radius: 5px;
-      transition: background-color 0.3s ease; /* Плавное изменение фона */
+      transition: background-color 0.3s ease;
     }
     button:hover {
       background-color: #27ae60;
@@ -129,8 +137,8 @@
     }
     fieldset div {
       margin-bottom: 10px;
-      display: flex; /* Используем flex для размещения элементов в строку */
-      align-items: center; /* Выравниваем по вертикали */
+      display: flex;
+      align-items: center;
       display: flex;
       align-items: center;
     }
@@ -144,7 +152,7 @@
     .documents a {
       color: #007bff;
       text-decoration: none;
-      cursor: pointer; /* Добавляем курсор pointer для интерактивности */
+      cursor: pointer;
       cursor: pointer;
       transition: color 0.3s ease;
     }
@@ -154,7 +162,7 @@
     }
     .document-content {
       margin-left: 20px;
-      display: none; /* Скрываем содержимое по умолчанию */
+      display: none;
       display: none;
     }
     .document-content.show {
@@ -173,6 +181,21 @@
     }
     footer a:hover {
       color: #f0f0f0;
+    }
+    .additional-options {
+        margin-top: 15px;
+        display: none;
+        flex-direction: column;
+        border: 1px solid #eee;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+    .additional-options.show {
+        display: flex;
+    }
+    .additional-options input[type="checkbox"]{
+      margin-right: 5px;
     }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
@@ -216,15 +239,63 @@
         <label for="coverageAmount">Сумма страхового покрытия (₽):</label>
         <input type="number" id="coverageAmount" value="50000" min="1">
       </div>
+       <div>
+          <label for="disabilityCoverage">Сумма компенсации за потерю трудоспособности или инвалидность (₽):</label>
+           <input type="number" id="disabilityCoverage" value="0" min="0">
+      </div>
       <div>
         <label for="clientAge">Возраст клиента:</label>
         <input type="number" id="clientAge" min="0" max="999">
+      </div>
+      <div>
+        <label for="occupation">Занятие или хобби:</label>
+         <select id="occupation">
+            <option value="">Выберите занятие/хобби</option>
+            <option value="office_worker">Офисный работник</option>
+            <option value="outdoor_enthusiast">Любитель активного отдыха</option>
+            <option value="construction_worker">Строитель</option>
+             <option value="other">Другое</option>
+        </select>
+      </div>
+       <div>
+        <label for="healthStatus">Состояние здоровья:</label>
+           <select id="healthStatus">
+            <option value="">Выберите состояние здоровья</option>
+            <option value="excellent">Отличное</option>
+            <option value="good">Хорошее</option>
+            <option value="satisfactory">Удовлетворительное</option>
+            <option value="poor">Плохое</option>
+          </select>
+      </div>
+       <div>
+        <label for="healthHistory">История заболеваний:</label>
+           <select id="healthHistory">
+             <option value="">Выберите вариант</option>
+              <option value="no_history">Нет истории заболеваний</option>
+              <option value="minor_conditions">Незначительные заболевания</option>
+              <option value="chronic_conditions">Хронические заболевания</option>
+              <option value="serious_conditions">Серьезные заболевания</option>
+          </select>
       </div>
       <div>
         <label for="region">Регион:</label>
         <select id="region">
           <option value="">Выберите регион</option>
         </select>
+      </div>
+      <div>
+           <button onclick="toggleAdditionalOptions()">Дополнительные опции</button>
+           <div class="additional-options" id="additionalOptions">
+                <div>
+                 <input type="checkbox" id="franchise" name="additionalOption" value="franchise">
+                  <label for="franchise">Франшиза</label>
+                   <input type="number" id="franchiseAmount" value="0" min="0" placeholder="Размер франшизы (₽)" style="display: none; width: calc(50% - 10px); margin-left: 10px;">
+              </div>
+                <div>
+                    <input type="checkbox" id="extended_coverage" name="additionalOption" value="extended_coverage">
+                    <label for="extended_coverage">Расширенное покрытие</label>
+                  </div>
+          </div>
       </div>
       <button onclick="calculatePremium()">Рассчитать</button>
       <div id="premiumResult">Введите данные и нажмите "Рассчитать".</div>
@@ -601,86 +672,8 @@
 
     document.addEventListener('DOMContentLoaded', function () {
       const regionSelect = document.getElementById('region');
-      for (const regionType in regions) {
-        const optgroup = document.createElement('optgroup');
-        optgroup.label = regionType;
-        for (const regionName in regions[regionType]) {
-          const citiesInRegion = regions[regionType][regionName];
-          citiesInRegion.forEach(city => {
-            const option = document.createElement('option');
-            option.value = regionName;
-            option.textContent = city + (citiesInRegion.length > 1 ? ` (${regionName})` : '');
-            optgroup.appendChild(option);
-          });
+      for (const regionType in)
         }
-        regionSelect.appendChild(optgroup);
-      }
-
-      const el = document.body;
-      const sortable = Sortable.create(el, {
-        draggable: '.container',
-        animation: 150
-      });
-    });
-
-    function calculatePremium() {
-      const program = document.querySelector('input[name="program"]:checked').value;
-      const insuranceDays = parseInt(document.getElementById('insuranceDays').value, 10);
-      const coverageAmount = parseFloat(document.getElementById('coverageAmount').value, 10);
-      const clientAge = parseInt(document.getElementById('clientAge').value, 10);
-      const region = document.getElementById('region').value;
-
-      if (isNaN(insuranceDays) || insuranceDays <= 0 || isNaN(coverageAmount) || coverageAmount <= 0) {
-        document.getElementById('premiumResult').textContent = 'Пожалуйста, введите корректные данные для расчёта.';
-        return;
-      }
-
-      console.log("Возраст клиента:", clientAge);
-      console.log("Регион:", region);
-
-      let baseRate;
-      switch (program) {
-        case 'basic':
-          baseRate = 0.01;
-          break;
-        case 'complex':
-          baseRate = 0.015;
-          break;
-        case 'complex_ambulance':
-          baseRate = 0.02;
-          break;
-        default:
-          baseRate = 0.01;
-      }
-
-      const premium = coverageAmount * baseRate * insuranceDays / 365;
-      document.getElementById('premiumResult').textContent = `Расчётная стоимость страхования: ${premium.toFixed(2)} ₽`;
-    }
-
-    document.getElementById('snils').addEventListener('input', function(e) {
-      let value = e.target.value.replace(/\D/g, '');
-      let formattedValue = '';
-      for (let i = 0; i < value.length; i++) {
-        if (i === 3 || i === 6) {
-          formattedValue += '-';
-        } else if (i === 9) {
-          formattedValue += ' ';
-        }
-        formattedValue += value[i];
-      }
-      e.target.value = formattedValue;
-    });
-
-    document.getElementById('inn').addEventListener('input', function(e) {
-      if (e.target.value.length > 12) {
-        e.target.value = e.target.value.slice(0, 12);
-      }
-    });
-
-    function toggleDocument(contentId) {
-      const content = document.getElementById(contentId);
-      content.classList.toggle('show');
-    }
   </script>
 
 </body>
